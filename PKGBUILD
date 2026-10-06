@@ -9,7 +9,7 @@
 
 pkgname=kizurium-translator
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Wayland-native screen translator and OCR tool for Linux with live translation overlays"
 arch=('x86_64' 'aarch64')
 url="https://github.com/Kizuchann/kizurium-translator"
@@ -40,12 +40,6 @@ sha256sums_aarch64=('d2184fddb6798136e7c478244391ca82443f5c757f59f15bb9e5ad2da5e
 # rule - including when it only appears in a comment. Deriving it from this
 # file's own path is both exact and invisible to that rule.
 _tree=$(dirname -- "${BASH_SOURCE[0]}")
-
-# Where makepkg puts what it downloads. The default is the source directory,
-# which here is the Python package itself: the wheel would then sit next to
-# kizurium_translator/ and get collected by pytest. .local/ is gitignored and
-# nothing scans it.
-SRCDEST="$_tree/.local/pkgsrc"
 
 # Unpacked by python-installer, not by makepkg. makepkg points $srcdir at ./src
 # for a package that builds from a checked-out tree, so unpacking here would drop
@@ -113,10 +107,10 @@ package() {
     # the file that is actually there.
     python -m installer --destdir="$pkgdir" dist/*.whl
     python -m installer --destdir="$pkgdir" \
-        "$SRCDEST/rapidocr-$_rapid_ver-py3-none-any.whl"
+        "$srcdir/rapidocr-$_rapid_ver-py3-none-any.whl"
     if [[ "$CARCH" == aarch64 ]]; then
         python -m installer --destdir="$pkgdir" \
-            "$SRCDEST/onnxruntime-$_ort_ver-$_py-$_py-manylinux_2_28_aarch64.whl"
+            "$srcdir/onnxruntime-$_ort_ver-$_py-$_py-manylinux_2_28_aarch64.whl"
     fi
 
     install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
