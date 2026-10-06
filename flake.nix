@@ -6,7 +6,7 @@
 # Quick start:
 #   nix run .#
 #   nix run .# -- --doctor
-#   nix profile install .#kizurium-translator
+#   nix profile add .#kizurium-translator
 {
   description = "Kizurium Translator — Wayland OCR overlay translator";
 

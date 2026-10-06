@@ -65,7 +65,7 @@ cd kizurium-translator
 **NixOS / Nix** — flakes ship with the repository:
 
 ```bash
-nix profile install github:Kizuchann/kizurium-translator
+nix profile add github:Kizuchann/kizurium-translator
 # or in configuration.nix
 #   inputs.kizurium.url = "github:Kizuchann/kizurium-translator";
 ```

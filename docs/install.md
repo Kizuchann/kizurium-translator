@@ -41,7 +41,7 @@ kizurium-translator --uninstall --purge
 
 ```bash
 nix run .# -- --doctor
-nix profile install .#kizurium-translator
+nix profile add .#kizurium-translator
 # или ./install.sh
 ```
 

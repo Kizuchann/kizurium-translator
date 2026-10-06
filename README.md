@@ -62,7 +62,7 @@ cd kizurium-translator
 **NixOS / Nix** — flakes включены в репозиторий:
 
 ```bash
-nix profile install github:Kizuchann/kizurium-translator
+nix profile add github:Kizuchann/kizurium-translator
 # или в configuration.nix
 #   inputs.kizurium.url = "github:Kizuchann/kizurium-translator";
 ```
