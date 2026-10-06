@@ -54,10 +54,10 @@ cd kizurium-translator
 makepkg -si
 ```
 
-`makepkg -si` installs tesseract. RapidOCR is not in the Arch repositories, only
-on PyPI (27 MB plus 21 MB of onnxruntime), so the package does not pull it:
-pacman cannot install from pip, and baking the wheels
-into the build would cost it its reproducibility. For RapidOCR use `./install.sh`, which installs it.
+The package already includes RapidOCR, ONNX Runtime and tesseract with English
+data. `pacman -Rns kizurium-translator` removes everything it installed;
+onnxruntime stays only if something else still needs it, which is how pacman
+dependencies work. There is no second install step.
 
 **Any distribution** — the installer puts the command in `~/.local/bin`:
 

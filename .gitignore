@@ -19,6 +19,7 @@ htmlcov/
 # Built packages: 5 MB of binary that hatchling would put in the
 # sdist, since anything not ignored here goes in.
 *.pkg.tar.zst
+*.whl
 *.pid
 *.lock
 !uv.lock
