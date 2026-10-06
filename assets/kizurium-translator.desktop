@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Kizurium Translator
+GenericName=Screen Translator
+Comment=Перевод текста на экране через OCR и оверлей Wayland
+Comment[en]=Translate on-screen text with OCR and a Wayland overlay
+Exec=kizurium-translator --toggle
+TryExec=kizurium-translator
+Icon=kizurium-translator
+Terminal=false
+Categories=Utility;Translation;GTK;
+Keywords=translate;ocr;wayland;overlay;
+StartupNotify=false
+X-AppId=ru.kizurium.translator

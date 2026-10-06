@@ -19,6 +19,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import pytest
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
@@ -51,6 +52,7 @@ class TestGlyphMetrics:
         m = live.measure_glyph_metrics(_img(), (10, 10, 14, 14))
         assert m.height == 0 or m.width == 0, m
 
+    @pytest.mark.needs_host
     def test_a_wider_gap_reports_wider_tracking(self):
         """Letter spacing is visible on screen and is not in the text.
 
@@ -68,6 +70,7 @@ class TestGlyphMetrics:
 
         assert wide.tracking > tight.tracking, (wide.tracking, tight.tracking)
 
+    @pytest.mark.needs_host
     def test_a_taller_glyph_reports_a_taller_height(self):
         img = Image.new("RGB", (900, 400), (0, 0, 0))
         _draw_spaced(img, (20, 20), "Abc", spacing=2, size=14)

@@ -20,12 +20,17 @@ from kizurium_translator.translation import user_glossary  # noqa: E402
 from kizurium_translator.translation.service import glossary_translation  # noqa: E402
 
 # Сколько записей было в коде до переноса. Если файл потерял строку, тест падает.
+#
+# Считается по всем пакетам, а не только по core: `groups()` берёт `load_terms()`,
+# который складывает core и профильные пакеты. Профиль `echoes_of_aincrad` принёс
+# 7 имён в proper_names и 1 в title_names, и числа ниже это уже учитывают - иначе
+# тест требовал бы вернуть словари, которые уехали в профиль осознанно.
 EXPECTED = {
     "ui": 75,
     "game_vocab": 80,
     "title_vocab": 5,
-    "proper_names": 11,
-    "title_names": 28,
+    "proper_names": 18,
+    "title_names": 29,
     "stat_abbr": 41,
     "speakers": 46,
 }

@@ -16,6 +16,9 @@ htmlcov/
 
 # Runtime artefacts
 *.log
+# Built packages: 5 MB of binary that hatchling would put in the
+# sdist, since anything not ignored here goes in.
+*.pkg.tar.zst
 *.pid
 *.lock
 !uv.lock

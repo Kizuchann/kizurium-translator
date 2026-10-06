@@ -75,6 +75,7 @@ def test_offline_only_uses_local_pack(tmp_path, monkeypatch):
         source="en",
         offline_only=True,
         cache_path=tmp_path / "c.sqlite",
+        tm_path=tmp_path / "tm.sqlite",
         glossary={},
         log=logs.append,
     )

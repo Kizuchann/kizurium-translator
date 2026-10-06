@@ -20,7 +20,6 @@ from ..core.text import (
     tdetail,
     tlog,
 )
-from ..live.reconcile import rapid_ocr_lines
 from ..ocr.engine import (
     is_garbage_ocr,
     is_overlay_echo_ocr,
@@ -77,6 +76,13 @@ def merge_spoken_with_hud(
         for p in hud
     )
     if not has_top:
+        # Imported here, not at the top of the module: `live/__init__` imports
+        # this module, so a module-level import of anything under `live` makes
+        # `import kizurium_translator.layout.dialogue` fail on its own with a
+        # half-initialised module. It only worked because the CLI happens to
+        # import `live` first.
+        from ..live.reconcile import rapid_ocr_lines
+
         try:
             y_top = max(80, int(h * 0.38))
             top = region_img.crop((0, 0, w, y_top))

@@ -919,7 +919,7 @@ def cmd_doctor(conf: Config) -> int:
     naming. Selector is its own section now and nothing in it fails live.
     """
     from .compositor import detect, hotkey_snippet
-    from .diagnose import Line, Section, Status, render_doctor
+    from .diagnose import Section, Status, render_doctor
 
     core = Section("Core")
     wayland = Section("Wayland")

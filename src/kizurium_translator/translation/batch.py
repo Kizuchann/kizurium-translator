@@ -10,7 +10,6 @@ import time
 
 from .. import translate as translate_mod
 from ..core.text import RE_LAT, block_lang, tlog
-from ..live.runtime import TRANSLATION, translator
 from ..ocr.engine import normalize_japanese_text
 from ..translation.service import (
     glossary_translation,
@@ -23,6 +22,7 @@ from ..typography.metrics import RE_JPN
 
 def _translate_tail(text: str) -> str:
     """Translate the remainder of a phrase whose head came from the glossary."""
+    from ..live.runtime import translator
     if not text:
         return ""
     if glossary_translation(text):
@@ -44,6 +44,7 @@ def translate_single_line(original: str, is_jpn: bool = False, *, allow_slow: bo
     # is_jpn is kept for callers outside the live loop; the text decides anyway
     # (see below), so a caller that passes it wrong loses nothing.
     """One string through the shared backend. Falls back to the source text."""
+    from ..live.runtime import TRANSLATION, translator
     cleaned = (
         normalize_japanese_text(original)
         if is_jpn or RE_JPN.search(original)
@@ -95,6 +96,7 @@ def translate_many(
     A response is rejected when the backend failed, not when it contains
     Japanese: a Japanese result is a legitimate translation.
     """
+    from ..live.runtime import TRANSLATION, translator
     t0 = time.monotonic()
     texts: list[str] = []
     sources: list[str] = []

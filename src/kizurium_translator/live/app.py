@@ -20,13 +20,12 @@ from .runtime import TRANSLATION, shutdown
 from .session import (
     APP_ID_OVERLAY,
     LAYER_NAMESPACE,
-    LOCK,
-    PIDFILE,
     Gdk,
     GLib,
     Gtk,
     LayerShell,
     State,
+    _lock_paths,
     worker,
 )
 from .snap import parse_geom
@@ -61,10 +60,11 @@ def main(argv: list[str] | None = None) -> int:
     autotrace.install(skip=("worker", "main", "_worker_wrap"))
 
     # не стартовать второй слой поверх уже живого
-    # shell может уже записать наш pid в PIDFILE до входа сюда — себя не считаем «чужим»
-    if os.path.exists(PIDFILE):
+    # shell может уже записать наш pid в pid-файл до входа сюда — себя не считаем «чужим»
+    lock, pidfile = _lock_paths()
+    if os.path.exists(pidfile):
         try:
-            other = int(open(PIDFILE, encoding="utf-8").read().strip())
+            other = int(open(pidfile, encoding="utf-8").read().strip())
             if other > 0 and other != os.getpid():
                 os.kill(other, 0)
                 tlog(f"refuse-second pid={other}")
@@ -78,12 +78,12 @@ def main(argv: list[str] | None = None) -> int:
     # "which process is the overlay" stays answerable even after the runtime
     # directory has been cleared and the pid file with it. Without this a
     # session could not be stopped, only waited out.
-    lock_fd = os.open(LOCK, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
+    lock_fd = os.open(lock, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
     try:
         os.write(lock_fd, str(os.getpid()).encode("ascii"))
     except OSError:
         pass
-    with open(PIDFILE, "w", encoding="utf-8") as f:
+    with open(pidfile, "w", encoding="utf-8") as f:
         f.write(str(os.getpid()))
 
     state = State()
@@ -248,7 +248,7 @@ def main(argv: list[str] | None = None) -> int:
         last_rev = {"n": -1}
 
         def tick() -> bool:
-            if not os.path.exists(LOCK):
+            if not os.path.exists(lock):
                 stop.set()
                 app.quit()
                 return False
@@ -280,7 +280,7 @@ def main(argv: list[str] | None = None) -> int:
     finally:
         stop.set()
         shutdown()
-        for path in (LOCK, PIDFILE):
+        for path in (lock, pidfile):
             try:
                 os.remove(path)
             except OSError:

@@ -884,6 +884,7 @@ class Translator:
         cooldown_s: float = 25.0,
         cache_path: Path | None = None,
         cache_max_entries: int = 4000,
+        tm_path: Path | None = None,
         glossary: dict[str, str] | None = None,
         log: Callable[[str], None] | None = None,
         session_factory: Callable[[], object] | None = None,
@@ -907,11 +908,30 @@ class Translator:
             cache_max_entries,
             glossary_version=self.glossary_version,
         )
+        # The translation memory follows the paths it was given. It used to be
+        # the process-wide default memory, so a caller that pointed the cache
+        # somewhere else - a test, an embedding - still read and wrote the
+        # user's own database, and what it wrote came back on the next run.
+        self._tm = self._open_memory(tm_path)
         self._lock = threading.RLock()
         if self.offline_only:
             self._log_msg("offline_only=true (online backends not instantiated)")
 
     # -- plumbing ---------------------------------------------------------
+    def _open_memory(self, tm_path: Path | None) -> object:
+        """Memory for this translator. `tm_path=None` - the shared default one.
+
+        Resolved once here rather than at every lookup: `default_memory(path)`
+        hands out a new object per call, and a sqlite handle per lookup is a
+        cost the frame loop should not pay.
+        """
+        from .lexicon.translation_memory import default_memory
+
+        return default_memory(tm_path)
+
+    def _memory(self) -> object:
+        return self._tm
+
     def _log_msg(self, msg: str) -> None:
         self._log(msg)
 
@@ -1100,9 +1120,7 @@ class Translator:
         # Translation memory is a curation surface, separate from the hot cache.
         # A hit here still is not a glossary entry until the user promotes it.
         try:
-            from .lexicon.translation_memory import default_memory
-
-            remembered = default_memory().lookup(text, source_lang=src, target_lang=self.target)
+            remembered = self._memory().lookup(text, source_lang=src, target_lang=self.target)
             if remembered and (
                 is_error_response(text, remembered, self.target)
                 or translation_dropped_tail(text, remembered)
@@ -1110,7 +1128,7 @@ class Translator:
                 # Prior local MT wrote junk (ПРЮ / truncated) into TM — drop it.
                 self._log_msg("tm-drop bad-memory")
                 try:
-                    default_memory().forget(
+                    self._memory().forget(
                         text, source_lang=src, target_lang=self.target
                     )
                 except Exception:  # noqa: BLE001
@@ -1218,9 +1236,7 @@ class Translator:
 
     def _remember(self, source_text: str, translated: str, source_lang: str, backend_id: str) -> None:
         try:
-            from .lexicon.translation_memory import default_memory
-
-            default_memory().remember(
+            self._memory().remember(
                 source_text,
                 translated,
                 source_lang=source_lang,

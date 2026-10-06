@@ -51,6 +51,11 @@ cd kizurium-translator
 makepkg -si
 ```
 
+`makepkg -si` ставит tesseract. RapidOCR в репозиториях Arch нет — только в
+PyPI (27 МБ плюс 21 МБ onnxruntime), поэтому пакет их не тянет: pacman не умеет
+ставить из pip, а вшивать wheels в сборку — значит отнимать у неё воспроизводимость.
+Нужен RapidOCR — ставь через `./install.sh`, он ставит и его.
+
 **Любой дистрибутив** — установщик кладёт команду в `~/.local/bin`:
 
 ```bash
@@ -74,6 +79,7 @@ nix profile add github:Kizuchann/kizurium-translator
 Pillow  numpy  pytesseract  requests          # pip
 python-gobject  python-cairo  gtk4  gtk4-layer-shell   # дистрибутив
 tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
+wl-clipboard  aria2  libnotify
 ```
 
 </details>
@@ -118,6 +124,7 @@ kizurium-translator --toggle
 Pillow  numpy  pytesseract  requests          # pip
 python-gobject  python-cairo  gtk4  gtk4-layer-shell   # дистрибутив
 tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
+wl-clipboard  aria2  libnotify
 ```
 
 </details>

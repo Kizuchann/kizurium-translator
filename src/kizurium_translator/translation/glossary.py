@@ -26,6 +26,8 @@ import functools
 import tomllib
 from pathlib import Path
 
+from ..core.scripts import script_of
+
 DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "glossary"
 
 #: Язык, словарь которого достаётся, когда язык назначения не назван.
@@ -120,7 +122,7 @@ def level_word(lang: str) -> str:
         return LEVEL_WORD[code]
     # Язык не в таблице: латиница пишется так же почти везде, и «Lv.» не
     # выдаёт себя за перевод лучше, чем пустая строка.
-    script = _script_of(code)
+    script = script_of(code)
     if script == "cyrl":
         return "Ур."
     return "Lv."

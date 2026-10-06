@@ -42,7 +42,6 @@ from ..layout.grouping import (
     merge_paragraphs,
     split_cross_column_merges,
 )
-from ..live.reconcile import cyrillic_probe_due, rapid_ocr_lines, rapid_ocr_lines_cyrillic
 from ..ocr.engine import (
     collect_subtitle_blocks,
     english_ocr_quality,
@@ -123,6 +122,7 @@ def read_frame(region_img: Image.Image, hint: str | None = None) -> tuple[list[d
     `CYRILLIC_PROBE_COOLDOWN_S`, и на игровом кадре не срабатывает вовсе -
     там `ocr_image` возвращает строки.
     """
+    from ..live.reconcile import cyrillic_probe_due, rapid_ocr_lines_cyrillic
     lines, mode = ocr_image(region_img, hint)
     if lines or not cyrillic_probe_due():
         return lines, mode
@@ -158,11 +158,11 @@ def _enrich_if_sparse(region_img: Image.Image, lines: list[dict]) -> list[dict]:
 
 
 def ocr_image(region_img: Image.Image, hint: str | None = None) -> tuple[list[dict], str]:
+    from ..live.reconcile import rapid_ocr_lines
     t0 = time.monotonic()
     w, h = region_img.size
     # EN/видео: сначала только Rapid (+нижняя полоса). Meiki дорогой и на YouTube не нужен.
     prefer_en = hint in ("eng-ui", "eng-subtitle", "eng", "eng+rus") or hint is None
-    video_hint = hint in ("eng-subtitle",) or (isinstance(hint, str) and hint.startswith("eng"))
     band_lines: list[dict] = []
     rapid: list[dict] = []
     # Every unfiltered read of this frame, in one list. The English paths below

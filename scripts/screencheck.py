@@ -27,9 +27,7 @@ import argparse
 import json
 import os
 import re
-import signal
 import subprocess
-import sys
 import time
 from pathlib import Path
 
@@ -549,7 +547,7 @@ def check_chain(workspaces: list[int], region: str, settle: float,
     over a scene that no longer contains it.
     """
     OUT.mkdir(parents=True, exist_ok=True)
-    first, last = workspaces[0], workspaces[-1]
+    first = workspaces[0]
     res: dict = {"scene": "->".join(str(w) for w in workspaces), "steps": []}
 
     if not go_ws(first):

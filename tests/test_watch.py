@@ -45,6 +45,7 @@ class _ListHandler(logging.Handler):
         self.lines.append(
             logging_setup.get_trace_formatter().format(record)
         )
+@pytest.mark.needs_host
 
 
 def test_the_audit_hook_sees_a_command_no_logging_call_was_written_for(tracer):

@@ -3,7 +3,7 @@
 Standalone app: does not read or modify compositor or Quickshell configs.
 """
 
-__version__ = "0.1.0"
+__version__ = "1.1.0"
 
 APP_ID = "ru.kizurium.translator"
 

@@ -84,12 +84,14 @@ def _nothing(monkeypatch):
 class TestTheReaderReadsCyrillicInARealProcess:
     """Сквозная проверка на настоящем кадре при загруженном GTK."""
 
+    @pytest.mark.needs_host
     def test_it_reads_russian_off_the_screen(self):
         got = reconcile.rapid_ocr_lines_cyrillic(_synth_frame())
         joined = " ".join(str(p.get("text", "")) for p in got)
         assert "Перевод" in joined, joined
         assert "Корректор" in joined, joined
 
+    @pytest.mark.needs_host
     def test_it_drops_what_is_not_cyrillic(self):
         """Латинская строка и одиночные символы — не кириллическое чтение."""
         got = reconcile.rapid_ocr_lines_cyrillic(_synth_frame())

@@ -456,6 +456,7 @@ def glossary_translation(text: str, target_lang: str | None = None) -> str | Non
         t,
         game_on=bool(translate_mod._TITLE_TRUTHY_ON),
         game=_active_profile_pack(),
+        target_lang=lang,
     )
     if data_hit:
         return data_hit
@@ -465,6 +466,7 @@ def glossary_translation(text: str, target_lang: str | None = None) -> str | Non
         t,
         game_on=bool(translate_mod._TITLE_TRUTHY_ON),
         game=_active_profile_pack(),
+        target_lang=lang,
     )
     if regex_hit:
         return regex_hit

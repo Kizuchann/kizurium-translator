@@ -977,9 +977,6 @@ def make_block(par: dict, translated: str, region_img: Image.Image, rx: int, ry:
         "kind": "dialogue" if kind == "dialogue-line" else kind,
         "fit_text": fit_text,
         "angle": angle,
-        # Не прописываем fg принудительно, если будут color_spans — там свои цвета.
-        # fg оставляем как fallback для линий без спанов.
-        "fg": fg,
         "align": "left"
         if (kind in ("dialogue", "dialogue-line", "body") or pin_box)
         else ("center" if centered else "left"),
@@ -1330,14 +1327,12 @@ def fit_layout(
         if fill_width and oneline:
             lo, hi = 8, max(preferred, src_h - 1)
             best = lay(lo, None)
-            best_size = lo
             while lo <= hi:
                 mid = (lo + hi) // 2
                 layout = lay(mid, None)
                 tw, th = layout.get_pixel_size()
                 if tw <= inner_w and th + pad_y * 2 <= src_h:
                     best = layout
-                    best_size = mid
                     lo = mid + 1
                 else:
                     hi = mid - 1

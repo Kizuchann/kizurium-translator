@@ -8,6 +8,8 @@ quiet helper rewrote ``XDG_CACHE_HOME`` to its parent (``~/.cache`` → ``~``).
 from __future__ import annotations
 
 import os
+
+import pytest
 import subprocess
 import sys
 from pathlib import Path
@@ -29,6 +31,7 @@ def test_prepare_gui_env_sets_gtk_a11y(monkeypatch):
     monkeypatch.delenv("GTK_A11Y", raising=False)
     prepare_gui_env()
     assert os.environ["GTK_A11Y"] == "none"
+@pytest.mark.needs_host
 
 
 def test_font_registration_is_silent(tmp_path):

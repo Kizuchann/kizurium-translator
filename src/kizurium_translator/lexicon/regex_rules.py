@@ -18,7 +18,7 @@ import threading
 from dataclasses import dataclass
 from pathlib import Path
 
-from .store import DATA_ROOT, SCOPE_RANK, _pack_id, _user_dictionary_roots
+from .store import DATA_ROOT, SCOPE_RANK, _pack_id, _user_dictionary_roots, speaks_to
 
 # Nested quantifiers and open-ended repetition on quantified groups are the
 # classic ReDoS shapes. A pack that ships them is refused at load, not at match.
@@ -175,14 +175,22 @@ def apply_regex(
     game_on: bool = False,
     game: str | None = None,
     ruleset: tuple[RegexRule, ...] | None = None,
+    target_lang: str | None = None,
 ) -> str | None:
-    """Apply the highest-priority matching rule, or ``None`` if none fit."""
+    """Apply the highest-priority matching rule, or ``None`` if none fit.
+
+    `target_lang` отсекает правила из пакетов, которые переводят на другой
+    язык: правило `^lv\\.?\\s*(\\d+)$` -> `Ур. \\1` живёт в пакете `core-en-ru`
+    и при `target=en` подставлять русское слово не должно.
+    """
     raw = (text or "").strip()
     if not raw:
         return None
     rows = list(ruleset if ruleset is not None else rules())
     rows.sort(key=lambda r: (SCOPE_RANK.get(r.scope, 0), r.priority, r.pattern), reverse=True)
     for rule in rows:
+        if not speaks_to(rule.pack, target_lang):
+            continue
         if not _scope_ok(rule, game_on=game_on, game=game):
             continue
         if not _script_compatible(rule, raw):

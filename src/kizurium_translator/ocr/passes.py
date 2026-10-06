@@ -38,11 +38,6 @@ from ..layout.grouping import (
     page_column_gutters,
     split_false_nav_merges,
 )
-from ..live.reconcile import (
-    _reading_key,
-    merge_overlapping_duplicates,
-    rapid_ocr_lines,
-)
 from ..ocr.engine import (
     english_ocr_quality,
     is_garbage_ocr,
@@ -68,6 +63,7 @@ def ocr_region_by_columns(
     seed_lines: list[dict] | None = None,
 ) -> list[dict] | None:
     """Широкий веб: OCR каждой колонки отдельно — не склеивает абзацы соседних колонок."""
+    from ..live.reconcile import rapid_ocr_lines
     w, h = region_img.size
     from ..core.scale import wide_enough_for_columns
 
@@ -167,6 +163,7 @@ def ocr_ink_bands_in_bubble(
 
     Full Rapid склеивает/глотает 2-ю строку → перевод обрубка («но оно есть»).
     """
+    from ..live.reconcile import rapid_ocr_lines
     try:
         import numpy as np
         from PIL import ImageEnhance
@@ -419,6 +416,7 @@ def finish_incomplete_vn_lines(region_img: Image.Image, lines: list[dict]) -> li
 
 def extend_dialogue_with_bottom_pass(region_img: Image.Image, blocks: list[dict]) -> list[dict]:
     """Второй проход по самому низу, если реплика обрезана (2-я строка letterbox)."""
+    from ..live.reconcile import rapid_ocr_lines
     if not blocks:
         return blocks
     main = blocks[0]
@@ -614,6 +612,7 @@ def _ocr_scaled_panel(
     *,
     try_descan: bool = False,
 ) -> list[dict]:
+    from ..live.reconcile import rapid_ocr_lines
     x0, y0, x1, y1 = box
     w, h = region_img.size
     x0, y0 = max(0, x0), max(0, y0)
@@ -670,6 +669,7 @@ def _ocr_scaled_panel(
 
 def ocr_center_modal_panel(region_img: Image.Image, existing: list[dict]) -> list[dict]:
     """Догон центральных модалок (Game Hints / Tutorial) — верх панели часто теряется."""
+    from ..live.reconcile import rapid_ocr_lines
     w, h = region_img.size
     if w < 700 or h < 420:
         return existing
@@ -833,6 +833,7 @@ def merge_rapid_prefer_dialogue(full: list[dict], band: list[dict]) -> list[dict
     Одинаковый текст на разной высоте (pinned chat + тот же chat в repo) — оба оставляем.
     Схлопываем только почти совпадающие по месту дубли.
     """
+    from ..live.reconcile import _reading_key
     out: list[dict] = []
     dropped_same_spot = 0
     kept_same_text = 0
@@ -889,6 +890,7 @@ def merge_rapid_prefer_dialogue(full: list[dict], band: list[dict]) -> list[dict
 
 def ocr_top_chrome_strip(region_img: Image.Image, lines: list[dict]) -> list[dict]:
     """Тонкая верхняя полоса меню (File/Edit/View/Help) — Rapid часто пропускает на fullscreen."""
+    from ..live.reconcile import rapid_ocr_lines
     w, h = region_img.size
     if h < 36 or w < 200:
         return lines
@@ -966,6 +968,7 @@ def ocr_top_chrome_strip(region_img: Image.Image, lines: list[dict]) -> list[dic
 def ocr_fill_vertical_gaps(region_img: Image.Image, lines: list[dict]) -> list[dict]:
     """eng-ui: между строками бывает дыра (чат под репо) — RapidOCR часто её пропускает.
     На узком выделении абзаца ещё и верх до первой строки; иначе «Learn with…» пропадает."""
+    from ..live.reconcile import rapid_ocr_lines
     if region_img.height < 80:
         return lines
     ordered = sorted(lines, key=lambda p: (p["box"][1], p["box"][0]))
@@ -1048,6 +1051,7 @@ def ocr_fill_vertical_gaps(region_img: Image.Image, lines: list[dict]) -> list[d
 
 def ocr_eng_ui_boost(region_img: Image.Image, lines: list[dict]) -> list[dict]:
     """Добор пропущенных строк абзаца на выделенной области."""
+    from ..live.reconcile import merge_overlapping_duplicates
     w, h = region_img.size
     log_ocr_coverage("ocr-ui", lines, w, h)
     lines = ocr_top_chrome_strip(region_img, lines)

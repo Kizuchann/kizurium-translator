@@ -215,8 +215,6 @@ def configure(config: Config, paths: Paths | None = None) -> None:
     SETTINGS.ocr_engines = config.ocr_engines
 
     text.PATHS = paths or default_paths()
-    LOCK = text.PATHS.lock
-    PIDFILE = text.PATHS.pid
     text.PATHS.ensure()
     # Once per configure: where data lives, before the frame loop starts.
     from ..paths import emit_storage_banner
@@ -235,6 +233,7 @@ def configure(config: Config, paths: Paths | None = None) -> None:
         cooldown_s=config.gtx_cooldown_s,
         cache_path=text.PATHS.translate_cache,
         cache_max_entries=config.cache_max_entries,
+        tm_path=text.PATHS.data_dir / "translation-memory.sqlite",
         glossary=config.glossary,
         log=tlog,
     )

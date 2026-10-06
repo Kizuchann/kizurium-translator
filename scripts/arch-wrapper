@@ -1,6 +1,0 @@
-#!/usr/bin/python
-import sys
-
-from kizurium_translator.cli import main
-
-sys.exit(main())

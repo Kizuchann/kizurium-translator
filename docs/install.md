@@ -45,7 +45,34 @@ nix profile add .#kizurium-translator
 # или ./install.sh
 ```
 
-Модуль: `programs.kizurium-translator.enable` в `flake.nix`.
+Модуль NixOS — включается одним флагом и тянет grim, slurp, wl-clipboard,
+tesseract, quickshell, gtk4, gtk4-layer-shell и aria2 в `systemPackages`:
+
+```nix
+{
+  inputs.kizurium.url = "github:Kizuchann/kizurium-translator";
+
+  # NixOS
+  outputs = { nixpkgs, kizurium, ... }: {
+    nixosConfigurations.myhost = nixpkgs.lib.nixosConfiguration {
+      system.stateVersion = "25.05";
+      modules = [
+        kizurium.nixosModules.default
+        { programs.kizurium-translator.enable = true; }
+      ];
+    };
+  };
+}
+```
+
+Пакет можно переопределить, если нужна не та версия:
+
+```nix
+programs.kizurium-translator = {
+  enable = true;
+  package = pkgs.callPackage ./path/to/package.nix { };
+};
+```
 
 Packs после установки: `kizurium-translator --pack-install all`.
 

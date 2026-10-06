@@ -59,6 +59,7 @@ class TestSlurpUsage:
         """
         assert not hasattr(capture, "select_region")
 
+    @pytest.mark.needs_host
     def test_output_selection_uses_o_and_r(self, monkeypatch):
         seen: list[list[str]] = []
 
@@ -70,6 +71,7 @@ class TestSlurpUsage:
         assert capture.select_output() == "0,0 2560x1440"
         assert seen == [["slurp", "-o", "-r"]]
 
+    @pytest.mark.needs_host
     def test_output_cancel_returns_empty(self, monkeypatch):
         """--output still asks slurp for a whole output, and Esc means nothing."""
         monkeypatch.setattr(

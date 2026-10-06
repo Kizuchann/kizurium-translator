@@ -171,11 +171,23 @@ class TestScheduler:
 class TestTranslatorVersions:
     def test_two_glossary_versions_do_not_share_a_hit(self, tmp_path):
         path = tmp_path / "c.sqlite"
-        first = Translator(target="ru", source="en", cache_path=path, glossary={"TIPS": "Советы"})
+        # A memory of its own per translator: the point is that the *cache* is
+        # shared and the memory is not. Left on the default one, the first
+        # translator remembered "от сети" and the second read it back before it
+        # ever consulted the cache, which says nothing about glossary versions.
+        first = Translator(
+            target="ru", source="en", cache_path=path,
+            tm_path=tmp_path / "tm-1.sqlite",
+            glossary={"TIPS": "Советы"},
+        )
         first.via_gtx = lambda text, source=None: "от сети"
         assert first.translate("Hello") == "от сети"
         first.cache_flush()
-        second = Translator(target="ru", source="en", cache_path=path, glossary={"TIPS": "Подсказка"})
+        second = Translator(
+            target="ru", source="en", cache_path=path,
+            tm_path=tmp_path / "tm-2.sqlite",
+            glossary={"TIPS": "Подсказка"},
+        )
         calls: list[str] = []
         second.via_gtx = lambda text, source=None: calls.append(text) or "заново"
         assert second.translate("Hello") == "заново"

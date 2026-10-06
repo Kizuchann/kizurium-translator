@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import pytest
 from PIL import Image, ImageDraw, ImageFont
 
 from kizurium_translator.live import (
@@ -65,6 +66,7 @@ def _block(text: str, box: tuple[int, int, int, int], lh: int = TOP_LH) -> dict:
         "kind": "dialogue",
         "line_boxes": [],
     }
+@pytest.mark.needs_host
 
 
 def test_ocr_really_sees_the_far_line():

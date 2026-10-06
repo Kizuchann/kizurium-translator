@@ -272,7 +272,7 @@ def storage_report(paths: Paths | None = None) -> list[str]:
         f"  models          {p.models_dir}  (offline language packs / CT2)",
         f"  translation-mem {p.data_dir / 'translation-memory.sqlite'}  (память, не глоссарий)",
         f"  lexicons        {lexicon_root}  (вшитые пачки)",
-        f"  language-packs  catalog: data/language_packs  (--packs / --pack-install)",
+        "  language-packs  catalog: data/language_packs  (--packs / --pack-install)",
         f"  state           {p.state_dir}",
         f"  overlay-log     {p.log}",
         f"  selector-log    {p.selector_log}",

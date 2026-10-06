@@ -218,7 +218,7 @@ def test_merge_prefers_russian_tess_over_rapid_soup():
 
 def test_cli_ocr_copy_uses_universal(monkeypatch):
     seen: dict = {}
-    monkeypatch.setattr(cli, "ask_region", lambda args: "0,0 10x10")
+    monkeypatch.setattr(cli, "ask_region", lambda args, **kw: "0,0 10x10")
     monkeypatch.setattr(
         cli.capture,
         "capture_image",
@@ -284,7 +284,7 @@ def test_main_flow_ocr_routes_to_clipboard_not_live(monkeypatch):
 
 
 def test_ocr_copy_never_instantiates_translator(monkeypatch):
-    monkeypatch.setattr(cli, "ask_region", lambda args: "0,0 10x10")
+    monkeypatch.setattr(cli, "ask_region", lambda args, **kw: "0,0 10x10")
     monkeypatch.setattr(
         cli.capture,
         "capture_image",

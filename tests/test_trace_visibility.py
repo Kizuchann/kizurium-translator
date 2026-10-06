@@ -57,6 +57,7 @@ def _need_hook() -> None:
     """
     if not watch.install_command_watch():
         pytest.skip("аудит-хук уже установлен в этом процессе")
+@pytest.mark.needs_host
 
 
 def test_a_command_writes_one_line_at_info_and_a_second_at_debug(tracer):

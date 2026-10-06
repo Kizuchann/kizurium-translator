@@ -122,3 +122,56 @@ def test_the_package_re_exports_it(name, attr):
 
     assert getattr(live, attr) is getattr(build, attr)
     assert name in getattr(live, "__all__", [])
+
+
+class TestTheSubtitleExpansionDoesNotDieInTheFrame:
+    """`expand_subtitle_line_blocks` звал `is_subtitle_junk_line` без импорта.
+
+    Имя не было объявлено в модуле, так что любой кадр с двумя строками
+    субтитров падал `NameError` уже после успешного OCR и перевода: переводчик
+    отдавал пустой кадр и выходил. Тест идёт через `build_blocks`, потому что
+    падало именно там, а не в прямом вызове функции.
+    """
+
+    def _subtitle_par(self) -> dict:
+        return {
+            "text": "first line\nsecond line",
+            "kind": "dialogue",
+            "box": (100, 100, 400, 160),
+            "conf": 90,
+            "line_boxes": [
+                {"text": "first line", "box": (100, 100, 400, 130)},
+                {"text": "second line", "box": (100, 135, 400, 160)},
+            ],
+        }
+
+    def test_a_dialogue_line_splits_into_a_card_per_subtitle_line(self):
+        blocks = _build(
+            [(self._subtitle_par(), "первая строка\nвторая строка")],
+            dialogue_mode=True,
+            eng_ui_mode=False,
+        )
+        assert [b["text"] for b in blocks] == ["первая строка", "вторая строка"]
+
+    def test_the_same_paragraph_under_the_english_ui_mode(self):
+        """Второй вход в ту же функцию: english-ui плюс kind=dialogue."""
+        blocks = _build(
+            [(self._subtitle_par(), "первая строка\nвторая строка")],
+            eng_ui_mode=True,
+        )
+        assert [b["text"] for b in blocks] == ["первая строка", "вторая строка"]
+
+    def test_a_newline_without_line_boxes_also_reaches_it(self):
+        """Ветка ниже берёт строки из текста, когда bbox строк не пришли."""
+        par = {
+            "text": "first line\nsecond line",
+            "kind": "dialogue",
+            "box": (100, 100, 400, 160),
+            "conf": 90,
+        }
+        blocks = _build(
+            [(par, "первая строка\nвторая строка")],
+            dialogue_mode=True,
+            eng_ui_mode=False,
+        )
+        assert len(blocks) == 2, blocks

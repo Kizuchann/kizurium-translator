@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kizurium-translator"
-version = "0.1.0"
+version = "1.1.0"
 description = "A Wayland-native screen translator and OCR tool for Linux, featuring live translation overlays and flexible text processing."
 readme = "README.md"
 requires-python = ">=3.11"

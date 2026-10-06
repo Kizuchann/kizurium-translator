@@ -712,7 +712,7 @@ install_nix() {
   [1] nix run .#          — попробовать без установки (из этой папки)
   [2] nix profile add .#kizurium-translator
                           — в user profile (команда в PATH)
-  [3] NixOS module hint   — systemPackages / home-manager (см. docs/install.md)
+  [3] NixOS module hint   — programs.kizurium-translator.enable (см. docs/install.md)
 EOF
     local choice="2"
     if is_tty && ((ASSUME_YES == 0)); then
@@ -819,7 +819,7 @@ if [[ "$DISTRO" != arch ]] && ! have pacman; then
     echo "  2) uv venv --system-site-packages && uv sync --extra rapid --extra local-mt"
     echo "  3) uv run kizurium-translator --doctor"
     echo
-    echo "Подробно: docs/install.md  (раздел Fedora / Debian)"
+    echo "Подробно: docs/install.md  (раздел Если что-то не так)"
     exit 1
 fi
 
@@ -984,6 +984,23 @@ case ":$PATH:" in
     *":$BIN_DIR:"*) ;;
     *) RUN_CMD="$BIN_DIR/kizurium-translator"; PATH_HAS_BIN=0 ;;
 esac
+
+# Что на самом деле выигрывает в PATH. Две установки молча делят одно имя
+# команды: pacman кладёт в /usr/bin, установщик - в ~/.local/bin, а
+# ~/.local/bin обычно стоит раньше. После `pacman -U` + `./install.sh` человек
+# запускает старую копию и видит её версию, ничего не поняв. Спросить нельзя -
+# ответ один и тот же, но сказать, какой файл победил, можно и нужно.
+SHADOWED="$(command -v kizurium-translator 2>/dev/null || true)"
+if [[ -n "$SHADOWED" && "$SHADOWED" != "$BIN_DIR/kizurium-translator" ]]; then
+    warn "в PATH есть ещё одна копия: $SHADOWED"
+    if "$SHADOWED" --version >/dev/null 2>&1; then
+        echo "    версия, которую запустит терминал: $("$SHADOWED" --version 2>&1 | tail -1)"
+    fi
+    echo "    только что поставлено:              $("$BIN_DIR/kizurium-translator" --version 2>&1 | tail -1)"
+    echo "    одна из двух установок лишняя:"
+    echo "      pacman -Rns kizurium-translator   # убрать системную"
+    echo "      rm -f \"$BIN_DIR/kizurium-translator\"  # убрать эту"
+fi
 
 if ((PACKS_OK)); then
     bold "Готово."

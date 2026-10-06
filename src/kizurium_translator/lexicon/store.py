@@ -51,6 +51,57 @@ def _pack_id(directory: Path) -> str:
     return str(data.get("id") or directory.name)
 
 
+def _pack_target(directory: Path) -> str | None:
+    manifest = directory / "manifest.toml"
+    try:
+        data = tomllib.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, tomllib.TOMLDecodeError):
+        return None
+    return str(data.get("target_language") or "").strip().lower() or None
+
+
+_PACK_TARGETS: dict[str, str] = {}
+_PACK_TARGETS_READ = False
+
+
+def _read_pack_targets() -> None:
+    global _PACK_TARGETS_READ
+    if _PACK_TARGETS_READ:
+        return
+    _PACK_TARGETS_READ = True
+    for root in (DATA_ROOT, *_user_dictionary_roots()):
+        if not root.is_dir():
+            continue
+        for manifest in sorted(root.rglob("manifest.toml")):
+            target = _pack_target(manifest.parent)
+            if target:
+                _PACK_TARGETS.setdefault(_pack_id(manifest.parent), target)
+
+
+def pack_target(pack: str) -> str | None:
+    """Язык, на который пакет переводит, или None, если пакет не заявил."""
+    _read_pack_targets()
+    return _PACK_TARGETS.get(pack)
+
+
+def speaks_to(pack: str, target_lang: str | None) -> bool:
+    """Пакет переводит на запрошенный язык.
+
+    Пакет объявляет в манифесте, на какой язык он переводит. `core/en-ru`
+    переводит на русский, и при `target=en` его строки показывать нельзя:
+    словарь отвечает верно, но не на том языке, и на экране это читается как
+    «перевод сломан». Язык не заявлен - пакет считается языконезависимым,
+    иначе молча выпадали бы пользовательские словари без манифеста.
+    """
+    if not target_lang:
+        return True
+    want = target_lang.strip().lower().split("-")[0]
+    have = pack_target(pack)
+    if have is None:
+        return True
+    return have.split("-")[0] == want
+
+
 def _read_tsv(path: Path, pack: str) -> list[Term]:
     try:
         lines = path.read_text(encoding="utf-8").splitlines()
@@ -202,12 +253,16 @@ def exact(
     game_on: bool = False,
     game: str | None = None,
     terms: tuple[Term, ...] | None = None,
+    target_lang: str | None = None,
 ) -> str | None:
     """Точное попадание. Машинный перевод сюда не подмешивается.
 
-    Пустой `target` значит «это не перевод, а пометка» — такое слово
+    Пустой `target` значит «это не перевод, а пометка» - такое слово
     резолвер не возвращает. Имя, которое надо оставить как есть, хранится
     отдельным множеством, а не как перевод.
+
+    `target_lang` отсекает пакеты, которые переводят на другой язык: при
+    `target=en` русский пакет отсюда не выдаётся.
     """
     if user:
         for key, value in user.items():
@@ -217,6 +272,8 @@ def exact(
     rows = terms if terms is not None else load_terms(*_user_dictionary_roots())
     for item in rows:
         if item.source != term or not item.target or item.target == item.source:
+            continue
+        if not speaks_to(item.pack, target_lang):
             continue
         if item.scope == "game":
             if game and item.pack != game:

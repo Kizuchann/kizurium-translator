@@ -11,6 +11,7 @@ from __future__ import annotations
 import os
 import re
 import threading
+from pathlib import Path
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -267,10 +268,15 @@ SCRIPT_LANGS = {
 }
 
 
-LOCK = PATHS.lock
+def _lock_paths() -> tuple[Path, Path]:
+    """Lock and pid file of the paths in force.
 
-
-PIDFILE = PATHS.pid
+    These were constants built from the default paths when this module was
+    imported, so `configure(paths=...)` moved the data directory while the
+    overlay went on watching a lock nobody held and writing its pid somewhere
+    the `--stop` side, which reads the paths it was given, never looked.
+    """
+    return text.PATHS.lock, text.PATHS.pid
 
 
 class _Pix:
@@ -371,7 +377,6 @@ def worker(state: State, geom: str, rx: int, ry: int, rw: int, rh: int, stop: th
     pending_hits = 0
     empty_hits = 0
     last_clean_check = 0.0
-    cycle_t0 = time.monotonic()
     # Сводка кадра. Одна строка на кадр, и она пишется в начале следующего
     # цикла: цикл кончается в десятке разных выходах, и искать единственную
     # точку выхода в них - значит каждый раз их переписывать. Так сводка
@@ -396,7 +401,7 @@ def worker(state: State, geom: str, rx: int, ry: int, rw: int, rh: int, stop: th
     # result is stale and must be discarded.
     ocr_frame_version = 0
 
-    while not stop.is_set() and os.path.exists(LOCK):
+    while not stop.is_set() and os.path.exists(_lock_paths()[0]):
         if frame_sum.dirty:
             frame_sum.emit()
             frame_sum = watch_mod.FrameSummary()

@@ -220,8 +220,13 @@ class TestToggleCannotLieAboutState:
 
         That fall-through is what the press felt like: the bind did not stop the
         overlay, it started a different overlay, and the first one stayed.
+
+        The invariant lives in `_main`. `main` only wraps it to catch
+        KeyboardInterrupt, so reading `main` here checked a function that never
+        had the branch, and the test went red when the wrapper appeared without
+        anything about the behaviour changing.
         """
-        body = inspect.getsource(cli.main)
+        body = inspect.getsource(cli._main)
         assert "if args.toggle:" in body
         toggle = body.split("if args.toggle:", 1)[1].split("\n    if ", 1)[0]
         # Toggle starts a session when none is running - that is the point of a
@@ -234,7 +239,7 @@ class TestToggleCannotLieAboutState:
 
     def test_toggle_returns_the_stop_result(self, tmp_path, monkeypatch):
         """A stop that failed has to reach the caller as a failure."""
-        body = inspect.getsource(cli.main)
+        body = inspect.getsource(cli._main)
         assert "return stop_live()" in body
         assert "stop_live() == 0" not in body
 

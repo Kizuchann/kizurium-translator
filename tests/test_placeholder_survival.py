@@ -10,6 +10,8 @@ not a per-game glossary entry for that word.
 
 from __future__ import annotations
 
+import re
+
 from kizurium_translator.translate import (
     Translator,
     placeholders_survived,
@@ -59,16 +61,42 @@ def test_restore_puts_original_name_back():
 
 
 def test_translator_drops_local_pryu_and_falls_through(tmp_path):
-    """via_local returns the real failure mode; translate() must not keep it."""
-    tr = Translator(source="en", target="ru", cache_path=tmp_path / "c.sqlite")
+    """via_local returns the real failure mode; translate() must not keep it.
+
+    The gtx mock has to look at the text it is handed. `translate()` protects
+    punctuation before calling a backend, so the real backend sees
+
+        However__KZT_P0__ you'll ... person to me__KZT_P1__ ZZNAME0ZZ__KZT_P2__
+
+    and a mock that ignores its argument returns a sentence with no tokens in
+    it at all. That is rejected as skeleton-lost, correctly - a backend that
+    eats the tokens has deleted the punctuation, and the result is discarded so
+    the next backend gets a turn. So the mock keeps the tokens it was given,
+    which is what the check is asking about.
+
+    The rejection itself is what the neighbouring tests assert.
+    """
+    tr = Translator(
+        source="en",
+        target="ru",
+        cache_path=tmp_path / "c.sqlite",
+        tm_path=tmp_path / "tm.sqlite",
+    )
     tr.via_local = lambda *a, **k: (  # type: ignore[method-assign]
         "Но ты всегда будешь самым важным для меня человеком, ПРЮ"
     )
-    tr.via_gtx = lambda *a, **k: (  # type: ignore[method-assign]
-        "Но ты всегда будешь самым важным для меня человеком, ZZNAME0ZZ. "
-        "Что бы ни случилось, это никогда не изменится."
-    )
+
+    def gtx(text, source=None, **kw):  # type: ignore[method-assign]
+        tokens = re.findall(r"__KZT_[A-Z0-9]+__", text or "")
+        return (
+            "Но ты всегда будешь самым важным для меня человеком, ZZNAME0ZZ. "
+            "Что бы ни случилось, это никогда не изменится. " + " ".join(tokens)
+        )
+
+    tr.via_gtx = gtx  # type: ignore[method-assign]
+
     out = tr.translate(SAMPLE)
+    assert out, "gtx-ответ с токенами должен был пройти"
     assert "ПРЮ" not in out
     assert "Doctor" in out or "Доктор" in out
     assert "изменит" in out.lower()

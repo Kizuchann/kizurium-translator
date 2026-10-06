@@ -14,7 +14,13 @@ from difflib import SequenceMatcher
 
 from PIL import Image
 
-from ..core.text import box_overlap_ratio, strip_watermark_tail, tdetail, tlog
+from ..core.text import (
+    box_overlap_ratio,
+    is_subtitle_junk_line,
+    strip_watermark_tail,
+    tdetail,
+    tlog,
+)
 from ..layout.grouping import is_mostly_russian
 from ..ocr.engine import is_garbage_ocr, skip_source
 from ..render.cards import make_block

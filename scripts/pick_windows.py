@@ -30,7 +30,6 @@ import argparse
 import random
 import subprocess
 import sys
-from pathlib import Path
 
 HOME_WS = 1
 

@@ -222,7 +222,7 @@ def rapid_ocr_lines(region_img: Image.Image, max_side: int = 1280) -> list[dict]
         xs = [p[0] for p in pts]
         ys = [p[1] for p in pts]
         x1, y1, x2, y2 = min(xs), min(ys), max(xs), max(ys)
-        w, h = max(1, x2 - x1), max(1, y2 - y1)
+        h = max(1, y2 - y1)
         angle = quad_angle_deg(pts)
         try:
             conf = float(conf_raw) * 100 if float(conf_raw) <= 1.0 else float(conf_raw)
