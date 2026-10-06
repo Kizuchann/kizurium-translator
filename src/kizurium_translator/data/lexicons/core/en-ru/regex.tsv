@@ -1,0 +1,6 @@
+pattern	replacement	scope	priority
+(?i)^lv\.?\s*(\d+)$	Ур. \1	global	40
+(?i)^rank\s*(\d+)$	Ранг \1	global	40
+(?i)^chapter\s+(\d+)$	Глава \1	global	40
+(?i)^stage\s+(\d+)$	Этап \1	global	40
+(?i)^ep\.?\s*(\d+)$	Эп. \1	global	40

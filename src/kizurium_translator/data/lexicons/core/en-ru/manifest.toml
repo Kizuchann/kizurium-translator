@@ -1,0 +1,7 @@
+id = "core-en-ru"
+version = "1"
+source_language = "en"
+target_language = "ru"
+scope = "global"
+license = "AGPL-3.0-or-later"
+source_url = ""

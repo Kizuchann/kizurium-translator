@@ -1,0 +1,10 @@
+source	target	scope	priority	flags
+Echoes of Aincrad	Echoes of Aincrad	game	50	title,proper-name
+Aincrad	Айнкрад	game	50	proper-name
+Kirito	Кирито	game	50	proper-name
+Asuna	Асуна	game	50	proper-name
+Leafa	Лифа	game	50	proper-name
+Silica	Силика	game	50	proper-name
+Lisbeth	Лизбет	game	50	proper-name
+Kayaba	Каяба	game	50	proper-name
+Floor Guardian	Страж Этажа	game	40	title

@@ -1,0 +1,208 @@
+source	target	scope	priority	flags
+About		global	10	not-name
+Accuracy		global	10	not-name
+Affection		global	10	not-name
+Back		global	10	not-name
+Cancel		global	10	not-name
+Claim		global	10	not-name
+Claim All		global	10	not-name
+Combo		global	10	not-name
+Complete		global	10	not-name
+Completed		global	10	not-name
+Confirm		global	10	not-name
+Continue		global	10	not-name
+Cooldown		global	10	not-name
+Daily		global	10	not-name
+Detail		global	10	not-name
+Details		global	10	not-name
+Disabled		global	10	not-name
+Drag		global	10	not-name
+Easy		global	10	not-name
+Edit		global	10	not-name
+Empty		global	10	not-name
+Enabled		global	10	not-name
+Energy		global	10	not-name
+Error		global	10	not-name
+Event		global	10	not-name
+Exit		global	10	not-name
+Expert		global	10	not-name
+Failed		global	10	not-name
+File		global	10	not-name
+Filter		global	10	not-name
+Full		global	10	not-name
+Hard		global	10	not-name
+Help		global	10	not-name
+Hold		global	10	not-name
+Incomplete		global	10	not-name
+Information		global	10	not-name
+Language		global	10	not-name
+Load		global	10	not-name
+Locked		global	10	not-name
+Master		global	10	not-name
+New Game		global	10	not-name
+Next		global	10	not-name
+Normal		global	10	not-name
+Not Ready		global	10	not-name
+Notice		global	10	not-name
+Performance		global	10	not-name
+Preferences		global	10	not-name
+Prev		global	10	not-name
+Quit		global	10	not-name
+Rank		global	10	not-name
+Read		global	10	not-name
+Ready		global	10	not-name
+Result		global	10	not-name
+Results		global	10	not-name
+Reward		global	10	not-name
+Save		global	10	not-name
+Score		global	10	not-name
+Search		global	10	not-name
+Settings		global	10	not-name
+Skip		global	10	not-name
+Sort		global	10	not-name
+Star		global	10	not-name
+Start		global	10	not-name
+Stat		global	10	not-name
+Stats		global	10	not-name
+Success		global	10	not-name
+Swipe		global	10	not-name
+Sync		global	10	not-name
+Sync failed		global	10	not-name
+Tutorial		global	10	not-name
+Unavailable		global	10	not-name
+Version		global	10	not-name
+View		global	10	not-name
+Waiting		global	10	not-name
+Warning		global	10	not-name
+Auto		global	20	not-name,game-vocab
+Auto Battle		global	20	not-name,game-vocab
+Auto Skip		global	20	not-name,game-vocab
+Auto-Battle		global	20	not-name,game-vocab
+Automatic		global	20	not-name,game-vocab
+Best		global	20	not-name,game-vocab
+Best Combo		global	20	not-name,game-vocab
+Bond		global	20	not-name,game-vocab
+Bonds		global	20	not-name,game-vocab
+Boss		global	20	not-name,game-vocab
+Chapter		global	20	not-name,game-vocab
+Cleared		global	20	not-name,game-vocab
+Costume		global	20	not-name,game-vocab
+Currencies		global	20	not-name,game-vocab
+Currency		global	20	not-name,game-vocab
+Daily Login		global	20	not-name,game-vocab
+Deploy		global	20	not-name,game-vocab
+Difficult		global	20	not-name,game-vocab
+Difficulty		global	20	not-name,game-vocab
+Double Tap		global	20	not-name,game-vocab
+Early Bird Bonus		global	20	not-name,game-vocab
+Evacuate		global	20	not-name,game-vocab
+Final Boss		global	20	not-name,game-vocab
+First Time Bonus		global	20	not-name,game-vocab
+Free Live		global	20	not-name,game-vocab
+Full Combo		global	20	not-name,game-vocab
+GACHA		global	20	not-name,game-vocab
+Gacha		global	20	not-name,game-vocab
+Grade		global	20	not-name,game-vocab
+Guest		global	20	not-name,game-vocab
+Host		global	20	not-name,game-vocab
+Inventory		global	20	not-name,game-vocab
+Inventory Full		global	20	not-name,game-vocab
+LIVE		global	20	not-name,game-vocab
+Level Up		global	20	not-name,game-vocab
+Level up!		global	20	not-name,game-vocab
+Live		global	20	not-name,game-vocab
+Lobby		global	20	not-name,game-vocab
+Login Bonus		global	20	not-name,game-vocab
+Manual		global	20	not-name,game-vocab
+Multi		global	20	not-name,game-vocab
+Multiplayer		global	20	not-name,game-vocab
+NEW!		global	20	not-name,game-vocab
+New!		global	20	not-name,game-vocab
+No Data		global	20	not-name,game-vocab
+No Data Available		global	20	not-name,game-vocab
+No Energy		global	20	not-name,game-vocab
+Not Enough		global	20	not-name,game-vocab
+Not Enough Energy		global	20	not-name,game-vocab
+Notice!		global	20	not-name,game-vocab
+Obtain		global	20	not-name,game-vocab
+Party		global	20	not-name,game-vocab
+Party Members		global	20	not-name,game-vocab
+Perfect		global	20	not-name,game-vocab
+Power		global	20	not-name,game-vocab
+Premium Currency		global	20	not-name,game-vocab
+Press and Hold		global	20	not-name,game-vocab
+Pull		global	20	not-name,game-vocab
+Rank Up		global	20	not-name,game-vocab
+Ranking		global	20	not-name,game-vocab
+Retreat		global	20	not-name,game-vocab
+Reward Claimed		global	20	not-name,game-vocab
+Rewards		global	20	not-name,game-vocab
+Sanity		global	20	not-name,game-vocab
+Settlement		global	20	not-name,game-vocab
+Skip Story		global	20	not-name,game-vocab
+Solo		global	20	not-name,game-vocab
+Squad		global	20	not-name,game-vocab
+Stamina		global	20	not-name,game-vocab
+Story		global	20	not-name,game-vocab
+Summon		global	20	not-name,game-vocab
+TAP!		global	20	not-name,game-vocab
+Tap!		global	20	not-name,game-vocab
+Tapping Disabled		global	20	not-name,game-vocab
+Team Edit		global	20	not-name,game-vocab
+Training		global	20	not-name,game-vocab
+Trust		global	20	not-name,game-vocab
+Unlocked		global	20	not-name,game-vocab
+Unread		global	20	not-name,game-vocab
+Wish		global	20	not-name,game-vocab
+Buster	Buster	global	30	proper-name
+Caster	Caster	global	30	proper-name
+Definer	Definer	global	30	proper-name
+Guard	Guard	global	30	proper-name
+Horn	Horn	global	30	proper-name
+Medic	Medic	global	30	proper-name
+My Sekai	My Sekai	global	30	proper-name
+Sniper	Sniper	global	30	proper-name
+Specialist	Specialist	global	30	proper-name
+Supporter	Supporter	global	30	proper-name
+Vanguard	Vanguard	global	30	proper-name
+AGI		global	5	stat
+AP		global	5	stat
+ATK		global	5	stat
+BGM		global	5	stat
+CD		global	5	stat
+CP		global	5	stat
+CRIT		global	5	stat
+DEF		global	5	stat
+DP		global	5	stat
+DPS		global	5	stat
+END		global	5	stat
+EXP		global	5	stat
+FC		global	5	stat
+HP		global	5	stat
+ID		global	5	stat
+INT		global	5	stat
+LUK		global	5	stat
+LV		global	5	stat
+MAX		global	5	stat
+MIN		global	5	stat
+MND		global	5	stat
+MP		global	5	stat
+NO		global	5	stat
+OK		global	5	stat
+OL		global	5	stat
+PC		global	5	stat
+PS		global	5	stat
+R		global	5	stat
+RES		global	5	stat
+SE		global	5	stat
+SP		global	5	stat
+SPD		global	5	stat
+SR		global	5	stat
+SSR		global	5	stat
+STR		global	5	stat
+TV		global	5	stat
+UI		global	5	stat
+UR		global	5	stat
+UX		global	5	stat
+VIT		global	5	stat
+VL		global	5	stat

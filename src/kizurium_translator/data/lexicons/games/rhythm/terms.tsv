@@ -1,0 +1,5 @@
+source	target	scope	priority	flags
+Arcaea	Arcaea	game	50	title,proper-name
+Phigros	Phigros	game	50	title,proper-name
+osu!	osu!	game	50	title,proper-name
+Beatmap	rhythm	40	title

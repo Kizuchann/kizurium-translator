@@ -1,0 +1,106 @@
+# Echoes of Aincrad. DATA only; core never branches on the title.
+#
+# The title is *Echoes of Aincrad* (Steam 2244210, Game Studio Inc. / Bandai
+# Namco, released 2026-07-09, Unreal Engine 5) — the exact name, not "Echo of".
+#
+# Zones below are measured, not guessed: every rectangle comes from a live run on
+# a 1920x1080 frame (`screencheck --chain 19,20,19`), so they are fractions of the
+# frame rather than pixels. A pixel count would only be right on the screen it
+# was measured on.
+#
+# The `glyph_band` zone is the one that earns this file. The boss bar on ws20 is
+# not text: the recogniser reads the runes as `LIUITEQI` and
+# `TU-LIOL+EGI IHVIAAITIKLLALT FDEBUI-A`, every one of those tokens has vowels,
+# so no amount of Latin-noise filtering catches them - and the backend
+# transliterates them into cards on top of the runes. What is inside is symbols,
+# and that is a fact about this game, so it lives here and not in core.
+id = "echoes_of_aincrad"
+lexicon_pack = "echoes_of_aincrad"
+enable_game_glossary = true
+preferred_ocr = ["rapid", "tesseract"]
+dialogue_prior = "gameplay HUD: objective, pickups, enemy name, interaction prompt"
+font_hint = ""
+
+[speaker]
+enabled = false
+gap_min_px = 16.0
+gap_glyph_mult = 1.5
+
+[timeouts]
+interval_sub = 0.28
+
+# Combat state, top left. Measured: "In Combat" at (29,215) 85x17.
+[[ui_zones]]
+name = "combat_state"
+x = 0.005
+y = 0.17
+w = 0.22
+h = 0.10
+unit = "frac"
+
+# Quest objective, right edge. Measured: "Search for Kirito" at (1528,237) 163x29.
+[[ui_zones]]
+name = "objective_line"
+x = 0.74
+y = 0.19
+w = 0.25
+h = 0.09
+unit = "frac"
+
+# Pickup toasts, right column under the objective. Measured: (1649,290) and
+# (1681,347), both roughly 200-240 px wide.
+[[ui_zones]]
+name = "pickup_toast"
+x = 0.80
+y = 0.25
+w = 0.19
+h = 0.12
+unit = "frac"
+
+# Boss name and level, top centre. Measured: "Tyrant Golem" at (845,50), and
+# "Lv.21" right under it at (1025,59).
+[[ui_zones]]
+name = "boss_name"
+x = 0.42
+y = 0.03
+w = 0.26
+h = 0.09
+unit = "frac"
+
+# The rune strip under the boss name. Measured: three lines of "words" at
+# (996,85), (996,118), (996,154), each ~100-115 px wide, spanning to x≈1210.
+# Named for the DECOR role, so nothing inside it is translated or covered.
+[[ui_zones]]
+name = "glyph_band"
+x = 0.50
+y = 0.06
+w = 0.14
+h = 0.11
+unit = "frac"
+
+# Enemy name over the artwork. Measured: "Ambusher" at (1012,615) 97x21.
+[[ui_zones]]
+name = "enemy_name"
+x = 0.50
+y = 0.54
+w = 0.18
+h = 0.07
+unit = "frac"
+
+# Interaction prompt, bottom centre. Measured: "Pick Up" at (937,845) 84x36.
+[[ui_zones]]
+name = "interaction_prompt"
+x = 0.45
+y = 0.74
+w = 0.14
+h = 0.09
+unit = "frac"
+
+# Boss-fight waiting notice. Measured: "Waiting to Switch" at (33,216) 129x36.
+[[ui_zones]]
+name = "notice_line"
+x = 0.005
+y = 0.19
+w = 0.20
+h = 0.08
+unit = "frac"

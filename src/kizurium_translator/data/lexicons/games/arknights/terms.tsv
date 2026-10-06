@@ -1,0 +1,24 @@
+source	target	scope	priority	flags
+LMD		game	40	title,not-name
+Originium		game	40	title,not-name
+Originium Arts		game	40	title,not-name
+Amiya	Amiya	game	50	title,proper-name
+Arknights	Arknights	game	50	title,proper-name
+Arknights Endfield	Arknights Endfield	game	50	title,proper-name
+Bagpipe	Bagpipe	game	50	title,proper-name
+Cobalt	Cobalt	game	50	title,proper-name
+Eblana	Eblana	game	50	title,proper-name
+Endfield	Endfield	game	50	title,proper-name
+Exusiai	Exusiai	game	50	title,proper-name
+Hoshiguma	Hoshiguma	game	50	title,proper-name
+Kal'tsit	Kal'tsit	game	50	title,proper-name
+Rhodes Island	Rhodes Island	game	50	title,proper-name
+Rosmontis	Rosmontis	game	50	title,proper-name
+Gacha	arknights	40	title
+Bonds	arknights	40	title
+Bond	arknights	40	title
+Trust	arknights	40	title
+Trust gained	arknights	40	title
+Sanity	arknights	40	title
+Sanity recovered	arknights	40	title
+Squad blocked	arknights	40	title

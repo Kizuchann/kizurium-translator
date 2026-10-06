@@ -1,0 +1,13 @@
+id = "genshin"
+lexicon_pack = "genshin"
+enable_game_glossary = true
+preferred_ocr = ["rapid", "tesseract"]
+dialogue_prior = "floating quest / interaction prompts"
+font_hint = ""
+
+[speaker]
+enabled = true
+gap_min_px = 16.0
+gap_glyph_mult = 1.5
+
+[timeouts]

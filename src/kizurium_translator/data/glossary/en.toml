@@ -1,0 +1,49 @@
+# Глоссарий английского.
+#
+# Намеренно короткий. Русский словарь на 271 запись, и его писали по
+# мере надобности, разбирая, как бэкенд калечит конкретные слова. English
+# так не требует: большинство коротких UI-лейблов - это те же слова,
+# только заглавными, и пустая запись честнее выдуманного перевода.
+#
+# Игровые термины отсутствуют: они либо остаются собой (имена,
+# аббревиатуры), либо это работа бэкенда.
+
+[ui]
+# Интерфейс
+"TAP!" = "Tap!"
+"START" = "Start"
+"START!" = "Start!"
+"GO!" = "Go!"
+"NEW!" = "New!"
+"FREE" = "Free"
+"OK" = "OK"
+"END" = "End"
+"CANCEL" = "Cancel"
+"CLOSE" = "Close"
+"NEXT" = "Next"
+"BACK" = "Back"
+"YES" = "Yes"
+"NO" = "No"
+"LEVEL UP" = "Level Up"
+"LEVEL CLEAR" = "Level Clear"
+"CLEAR!" = "Clear!"
+"CONTINUE" = "Continue"
+"RETRY" = "Retry"
+"SETTINGS" = "Settings"
+"QUIT" = "Quit"
+"SAVE" = "Save"
+"LOAD" = "Load"
+"VERSION" = "Version"
+"TIPS" = "Tips"
+"SKILL" = "Skill"
+"STORY" = "Story"
+"EVENT" = "Event"
+"RANK" = "Rank"
+"STAMINA" = "Stamina"
+"TUTORIAL" = "Tutorial"
+"DOWNLOAD" = "Download"
+"RANK UP" = "Rank Up"
+"SUPPORT" = "Support"
+
+[game]
+# Игровые термины: пусто.

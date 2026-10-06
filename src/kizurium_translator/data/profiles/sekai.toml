@@ -1,0 +1,15 @@
+id = "sekai"
+lexicon_pack = "sekai"
+enable_game_glossary = true
+preferred_ocr = ["rapid", "meiki", "tesseract"]
+dialogue_prior = "mixed JP/EN rhythm UI"
+font_hint = ""
+
+[speaker]
+enabled = true
+gap_min_px = 12.0
+gap_glyph_mult = 1.2
+
+[timeouts]
+interval = 0.45
+interval_sub = 0.22

@@ -1,0 +1,7 @@
+# Review routing, not copyright protection.
+#
+# CODEOWNERS decides who is asked to review a pull request on GitHub. It does
+# not assign ownership of the work, does not grant or restrict any licence, and
+# has no effect on the AGPL the project is under. Anyone with write access can
+# edit CODEOWNERS.
+* @Kizuchann

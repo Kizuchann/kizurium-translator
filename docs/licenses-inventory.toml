@@ -1,0 +1,198 @@
+# Third-party license inventory
+# Each [[component]] is one dataset, model, or library the project tracks
+# before bundling. Update when a dependency is added or a pack is shipped.
+
+[[component]]
+name = "JMdict"
+source = "Electronic Dictionary Research and Development Group"
+url = "https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project"
+version = "external"
+license = "CC-BY-SA-4.0"
+license_url = "https://creativecommons.org/licenses/by-sa/4.0/"
+redistributable = true
+attribution_required = true
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Optional lexicon pack only; attribution and share-alike required."
+
+[[component]]
+name = "JMnedict"
+source = "Electronic Dictionary Research and Development Group"
+url = "https://www.edrdg.org/wiki/index.php/ENAMDICT_JMNedict"
+version = "external"
+license = "CC-BY-SA-4.0"
+license_url = "https://creativecommons.org/licenses/by-sa/4.0/"
+redistributable = true
+attribution_required = true
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Names dictionary; same terms as JMdict."
+
+[[component]]
+name = "Tatoeba"
+source = "Tatoeba Project"
+url = "https://tatoeba.org/"
+version = "external"
+license = "CC-BY-2.0"
+license_url = "https://creativecommons.org/licenses/by/2.0/"
+redistributable = true
+attribution_required = true
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Optional examples pack only with license metadata preserved."
+
+[[component]]
+name = "OPUS-MT"
+source = "Helsinki-NLP"
+url = "https://huggingface.co/Helsinki-NLP"
+version = "external"
+license = "CC-BY-4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+redistributable = true
+attribution_required = true
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Pair models for the offline catalog (en-ru, ja-ru). Verify each model card before ship."
+
+[[component]]
+name = "RapidOCR"
+source = "RapidAI / RapidOCR"
+url = "https://github.com/RapidAI/RapidOCR"
+version = ">=3.9"
+license = "Apache-2.0"
+license_url = "https://www.apache.org/licenses/LICENSE-2.0"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Optional pip extra. ONNX model assets follow upstream; re-check on upgrade."
+
+[[component]]
+name = "PaddleOCR-assets"
+source = "PaddlePaddle"
+url = "https://github.com/PaddlePaddle/PaddleOCR"
+version = "external"
+license = "Apache-2.0"
+license_url = "https://www.apache.org/licenses/LICENSE-2.0"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Referenced via RapidOCR models; not vendored directly."
+
+[[component]]
+name = "CTranslate2"
+source = "OpenNMT / CTranslate2"
+url = "https://github.com/OpenNMT/CTranslate2"
+version = "external"
+license = "MIT"
+license_url = "https://opensource.org/licenses/MIT"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Local MT runtime for the offline OPUS-MT packs."
+
+[[component]]
+name = "NLLB"
+source = "Meta / Facebook Research (NLLB)"
+url = "https://huggingface.co/facebook/nllb-200-distilled-600M"
+version = "external"
+license = "CC-BY-NC-4.0"
+license_url = "https://creativecommons.org/licenses/by-nc/4.0/"
+redistributable = false
+attribution_required = true
+commercial_use = false
+bundled = false
+optional = true
+checksum = ""
+notes = "NLLB: researched only. NOT a default or catalog pack until a separate legal decision. Prefer pair-specific OPUS-MT (CC-BY-4.0) for first release. License family and NC terms must be re-verified on the exact model card before any optional enablement."
+
+[[component]]
+name = "Argos-Translate"
+source = "Argos Open Tech"
+url = "https://github.com/argosopentech/argos-translate"
+version = "external"
+license = "MIT"
+license_url = "https://opensource.org/licenses/MIT"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Argos Translate: optional candidate only. Not on the live path. Must pass offline probe (network blocked) before strict offline mode may use it. See docs/argos.md and issue #385 about helper-model networking."
+
+[[component]]
+name = "pymorphy3"
+source = "pymorphy2/pymorphy3 authors"
+url = "https://github.com/no-plagiarism/pymorphy3"
+version = "external"
+license = "MIT"
+license_url = "https://opensource.org/licenses/MIT"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Not a current dependency; dictionary packs may be LGPL/OpenCorpora — re-check before use."
+
+[[component]]
+name = "MeikiOCR"
+source = "MeikiOCR package"
+url = "https://pypi.org/project/meikiocr/"
+version = ">=0.3.5"
+license = "see-package"
+license_url = ""
+redistributable = false
+attribution_required = true
+commercial_use = false
+bundled = false
+optional = true
+checksum = ""
+notes = "Downloads a model on first use. Treat as optional; confirm license before any redistributed pack."
+
+[[component]]
+name = "deep-translator"
+source = "deep-translator"
+url = "https://github.com/nidhaloff/deep-translator"
+version = ">=1.11.4"
+license = "Apache-2.0"
+license_url = "https://www.apache.org/licenses/LICENSE-2.0"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Optional MyMemory / Google wrappers used as slow fallback."
+
+[[component]]
+name = "bundled-fonts-OFL"
+source = "kizurium_translator/fonts"
+url = ""
+version = "in-tree"
+license = "OFL-1.1"
+license_url = "https://openfontlicense.org/"
+redistributable = true
+attribution_required = true
+commercial_use = true
+bundled = true
+optional = false
+checksum = ""
+notes = "See src/kizurium_translator/fonts/LICENSE-OFL.txt."

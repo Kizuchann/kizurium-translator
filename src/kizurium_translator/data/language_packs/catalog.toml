@@ -1,0 +1,40 @@
+# Offline packs for live overlay. Small CPU CTranslate2 models: the game keeps
+# the GPU on a 4 GB laptop and on a desktop alike. Downloads try huggingface.co
+# then hf-mirror.com (or HF_ENDPOINT) so a blocked US CDN is not a dead end.
+
+[[pack]]
+id = "opus-mt-en-ru"
+label = "English → Russian (OPUS-MT)"
+version = "1"
+source = "en"
+target = "ru"
+engine = "ctranslate2"
+model_format = "ctranslate2"
+quantization = "int8"
+url = "https://huggingface.co/ordois/opus-mt-en-ru-ctranslate2-int8/resolve/main/opus-mt-en-ru-ctranslate2-int8.zip"
+sha256 = "f4c3ab9becb25549673ae407c5db73f86bcf57719426e497c592415a5b512bcd"
+size_bytes = 69488244
+hf_repo = ""
+license = "CC-BY-4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+source_url = "https://huggingface.co/Helsinki-NLP/opus-mt-en-ru"
+min_app_version = "0.1.0"
+
+[[pack]]
+id = "opus-mt-ja-ru"
+label = "Japanese → Russian (OPUS-MT)"
+version = "1"
+source = "ja"
+target = "ru"
+engine = "ctranslate2"
+model_format = "ctranslate2"
+quantization = "int8"
+url = ""
+sha256 = ""
+size_bytes = 87000000
+hf_repo = "manancode/opus-mt-ja-ru-ctranslate2-android"
+hf_revision = "b55dd79210c4890572b2cd5ef96f47752e723992"
+license = "CC-BY-4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+source_url = "https://huggingface.co/Helsinki-NLP/opus-mt-ja-ru"
+min_app_version = "0.1.0"

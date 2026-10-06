@@ -1,0 +1,1774 @@
+{
+  "sample": "Handgloves 0123",
+  "margin": 16,
+  "faces": [
+    {
+      "name": "PTSerif-Italic-18-dark",
+      "file": "PTSerif-Italic.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        164,
+        50
+      ],
+      "glyph_widths": [
+        23,
+        9,
+        55,
+        17,
+        19
+      ]
+    },
+    {
+      "name": "PTSerif-Italic-18-light",
+      "file": "PTSerif-Italic.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        164,
+        50
+      ],
+      "glyph_widths": [
+        23,
+        9,
+        55,
+        17,
+        19
+      ]
+    },
+    {
+      "name": "PTSerif-Regular-18-dark",
+      "file": "PTSerif-Regular.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        168,
+        50
+      ],
+      "glyph_widths": [
+        57,
+        27,
+        6,
+        9,
+        6,
+        9,
+        8
+      ]
+    },
+    {
+      "name": "PTSerif-Regular-18-light",
+      "file": "PTSerif-Regular.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        168,
+        50
+      ],
+      "glyph_widths": [
+        57,
+        27,
+        6,
+        9,
+        6,
+        9,
+        8
+      ]
+    },
+    {
+      "name": "NotoSans-14-dark",
+      "file": "NotoSans.ttf",
+      "size": 14,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        145,
+        47
+      ],
+      "glyph_widths": [
+        8,
+        7,
+        7,
+        7,
+        7,
+        22,
+        6,
+        7,
+        4,
+        14
+      ]
+    },
+    {
+      "name": "NotoSans-14-light",
+      "file": "NotoSans.ttf",
+      "size": 14,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        145,
+        47
+      ],
+      "glyph_widths": [
+        8,
+        7,
+        7,
+        7,
+        7,
+        22,
+        6,
+        7,
+        4,
+        14
+      ]
+    },
+    {
+      "name": "Orbitron-18-dark",
+      "file": "Orbitron.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        209,
+        51
+      ],
+      "glyph_widths": [
+        27,
+        41,
+        50,
+        21,
+        30
+      ]
+    },
+    {
+      "name": "Orbitron-18-light",
+      "file": "Orbitron.ttf",
+      "size": 18,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        209,
+        51
+      ],
+      "glyph_widths": [
+        27,
+        41,
+        50,
+        21,
+        30
+      ]
+    },
+    {
+      "name": "NotoSans-48-dark",
+      "file": "NotoSans.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        420,
+        79
+      ],
+      "glyph_widths": [
+        27,
+        21,
+        22,
+        23,
+        23,
+        5,
+        24,
+        25,
+        22,
+        19,
+        23,
+        14,
+        23,
+        23
+      ]
+    },
+    {
+      "name": "NotoSans-48-light",
+      "file": "NotoSans.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        420,
+        79
+      ],
+      "glyph_widths": [
+        27,
+        21,
+        22,
+        23,
+        23,
+        5,
+        24,
+        25,
+        22,
+        19,
+        23,
+        14,
+        23,
+        23
+      ]
+    },
+    {
+      "name": "NotoSans-64-dark",
+      "file": "NotoSans.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        550,
+        96
+      ],
+      "glyph_widths": [
+        35,
+        28,
+        29,
+        31,
+        31,
+        6,
+        32,
+        33,
+        29,
+        25,
+        30,
+        18,
+        30,
+        30
+      ]
+    },
+    {
+      "name": "NotoSans-64-light",
+      "file": "NotoSans.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        550,
+        96
+      ],
+      "glyph_widths": [
+        35,
+        28,
+        29,
+        31,
+        31,
+        6,
+        32,
+        33,
+        29,
+        25,
+        30,
+        18,
+        30,
+        30
+      ]
+    },
+    {
+      "name": "NotoSerif-48-dark",
+      "file": "NotoSerif.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        421,
+        79
+      ],
+      "glyph_widths": [
+        34,
+        23,
+        29,
+        26,
+        24,
+        14,
+        23,
+        28,
+        21,
+        17,
+        23,
+        20,
+        21,
+        21
+      ]
+    },
+    {
+      "name": "NotoSerif-48-light",
+      "file": "NotoSerif.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        421,
+        79
+      ],
+      "glyph_widths": [
+        34,
+        23,
+        29,
+        26,
+        24,
+        14,
+        23,
+        28,
+        21,
+        17,
+        23,
+        20,
+        21,
+        21
+      ]
+    },
+    {
+      "name": "NotoSerif-64-dark",
+      "file": "NotoSerif.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        550,
+        96
+      ],
+      "glyph_widths": [
+        46,
+        31,
+        39,
+        35,
+        32,
+        18,
+        30,
+        37,
+        28,
+        23,
+        30,
+        26,
+        28,
+        29
+      ]
+    },
+    {
+      "name": "NotoSerif-64-light",
+      "file": "NotoSerif.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        550,
+        96
+      ],
+      "glyph_widths": [
+        46,
+        31,
+        39,
+        35,
+        32,
+        18,
+        30,
+        37,
+        28,
+        23,
+        30,
+        26,
+        28,
+        29
+      ]
+    },
+    {
+      "name": "Onest-48-dark",
+      "file": "Onest.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        415,
+        78
+      ],
+      "glyph_widths": [
+        26,
+        21,
+        22,
+        23,
+        23,
+        4,
+        24,
+        26,
+        23,
+        21,
+        26,
+        11,
+        23,
+        24
+      ]
+    },
+    {
+      "name": "Onest-48-light",
+      "file": "Onest.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        415,
+        78
+      ],
+      "glyph_widths": [
+        26,
+        21,
+        22,
+        23,
+        23,
+        4,
+        24,
+        26,
+        23,
+        21,
+        26,
+        11,
+        23,
+        24
+      ]
+    },
+    {
+      "name": "GolosText-48-dark",
+      "file": "GolosText.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        427,
+        76
+      ],
+      "glyph_widths": [
+        27,
+        22,
+        22,
+        24,
+        24,
+        10,
+        25,
+        25,
+        24,
+        22,
+        24,
+        19,
+        24,
+        23
+      ]
+    },
+    {
+      "name": "GolosText-48-light",
+      "file": "GolosText.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        427,
+        76
+      ],
+      "glyph_widths": [
+        27,
+        22,
+        22,
+        24,
+        24,
+        10,
+        25,
+        25,
+        24,
+        22,
+        24,
+        19,
+        24,
+        23
+      ]
+    },
+    {
+      "name": "Play-Regular-48-dark",
+      "file": "Play-Regular.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        407,
+        77
+      ],
+      "glyph_widths": [
+        26,
+        20,
+        21,
+        22,
+        22,
+        5,
+        23,
+        22,
+        21,
+        19,
+        22,
+        15,
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Play-Regular-48-light",
+      "file": "Play-Regular.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        407,
+        77
+      ],
+      "glyph_widths": [
+        26,
+        20,
+        21,
+        22,
+        22,
+        5,
+        23,
+        22,
+        21,
+        19,
+        22,
+        15,
+        22,
+        22
+      ]
+    },
+    {
+      "name": "Play-Bold-48-dark",
+      "file": "Play-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        422,
+        77
+      ],
+      "glyph_widths": [
+        29,
+        23,
+        23,
+        25,
+        25,
+        8,
+        24,
+        25,
+        23,
+        22,
+        24,
+        16,
+        23,
+        23
+      ]
+    },
+    {
+      "name": "Play-Bold-48-light",
+      "file": "Play-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        422,
+        77
+      ],
+      "glyph_widths": [
+        29,
+        23,
+        23,
+        25,
+        25,
+        8,
+        24,
+        25,
+        23,
+        22,
+        24,
+        16,
+        23,
+        23
+      ]
+    },
+    {
+      "name": "PTSerif-Bold-48-dark",
+      "file": "PTSerif-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        420,
+        78
+      ],
+      "glyph_widths": [
+        35,
+        25,
+        30,
+        69,
+        76,
+        20,
+        25,
+        18,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "PTSerif-Bold-48-light",
+      "file": "PTSerif-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        420,
+        78
+      ],
+      "glyph_widths": [
+        35,
+        25,
+        30,
+        69,
+        76,
+        20,
+        25,
+        18,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Rajdhani-Bold-48-dark",
+      "file": "Rajdhani-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        364,
+        73
+      ],
+      "glyph_widths": [
+        22,
+        21,
+        21,
+        21,
+        21,
+        7,
+        21,
+        22,
+        20,
+        19,
+        22,
+        12,
+        20,
+        21
+      ]
+    },
+    {
+      "name": "Rajdhani-Bold-48-light",
+      "file": "Rajdhani-Bold.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "bold",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        364,
+        73
+      ],
+      "glyph_widths": [
+        22,
+        21,
+        21,
+        21,
+        21,
+        7,
+        21,
+        22,
+        20,
+        19,
+        22,
+        12,
+        20,
+        21
+      ]
+    },
+    {
+      "name": "PTSerif-Italic-48-dark",
+      "file": "PTSerif-Italic.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        384,
+        78
+      ],
+      "glyph_widths": [
+        60,
+        22,
+        60,
+        21,
+        22,
+        38,
+        25,
+        17,
+        26,
+        27
+      ]
+    },
+    {
+      "name": "PTSerif-Italic-48-light",
+      "file": "PTSerif-Italic.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        384,
+        78
+      ],
+      "glyph_widths": [
+        60,
+        22,
+        60,
+        21,
+        22,
+        38,
+        25,
+        17,
+        26,
+        27
+      ]
+    },
+    {
+      "name": "PTSerif-Italic-64-dark",
+      "file": "PTSerif-Italic.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        500,
+        94
+      ],
+      "glyph_widths": [
+        80,
+        30,
+        81,
+        28,
+        28,
+        26,
+        25,
+        33,
+        23,
+        69
+      ]
+    },
+    {
+      "name": "PTSerif-Italic-64-light",
+      "file": "PTSerif-Italic.ttf",
+      "size": 64,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "regular",
+      "slant": "italic",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        500,
+        94
+      ],
+      "glyph_widths": [
+        80,
+        30,
+        81,
+        28,
+        28,
+        26,
+        25,
+        33,
+        23,
+        69
+      ]
+    },
+    {
+      "name": "PressStart2P-28-dark",
+      "file": "PressStart2P.ttf",
+      "size": 28,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": true,
+      "size_px": [
+        452,
+        60
+      ],
+      "glyph_widths": [
+        25,
+        25,
+        25,
+        25,
+        25,
+        22,
+        25,
+        22,
+        25,
+        25,
+        25,
+        22,
+        25,
+        25
+      ]
+    },
+    {
+      "name": "PressStart2P-28-light",
+      "file": "PressStart2P.ttf",
+      "size": 28,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": true,
+      "size_px": [
+        452,
+        60
+      ],
+      "glyph_widths": [
+        25,
+        25,
+        25,
+        25,
+        25,
+        22,
+        25,
+        22,
+        25,
+        25,
+        25,
+        22,
+        25,
+        25
+      ]
+    },
+    {
+      "name": "Orbitron-48-dark",
+      "file": "Orbitron.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        504,
+        80
+      ],
+      "glyph_widths": [
+        35,
+        28,
+        28,
+        28,
+        28,
+        11,
+        28,
+        36,
+        28,
+        28,
+        35,
+        15,
+        35,
+        35
+      ]
+    },
+    {
+      "name": "Orbitron-48-light",
+      "file": "Orbitron.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        504,
+        80
+      ],
+      "glyph_widths": [
+        35,
+        28,
+        28,
+        28,
+        28,
+        11,
+        28,
+        36,
+        28,
+        28,
+        35,
+        15,
+        35,
+        35
+      ]
+    },
+    {
+      "name": "Michroma-48-dark",
+      "file": "Michroma.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        590,
+        80
+      ],
+      "glyph_widths": [
+        43,
+        31,
+        32,
+        34,
+        33,
+        5,
+        34,
+        35,
+        32,
+        32,
+        40,
+        33,
+        40,
+        40
+      ]
+    },
+    {
+      "name": "Michroma-48-light",
+      "file": "Michroma.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        590,
+        80
+      ],
+      "glyph_widths": [
+        43,
+        31,
+        32,
+        34,
+        33,
+        5,
+        34,
+        35,
+        32,
+        32,
+        40,
+        33,
+        40,
+        40
+      ]
+    },
+    {
+      "name": "Unbounded-48-dark",
+      "file": "Unbounded.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        526,
+        78
+      ],
+      "glyph_widths": [
+        36,
+        34,
+        31,
+        35,
+        33,
+        7,
+        67,
+        31,
+        31,
+        38,
+        19,
+        35,
+        35
+      ]
+    },
+    {
+      "name": "Unbounded-48-light",
+      "file": "Unbounded.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        526,
+        78
+      ],
+      "glyph_widths": [
+        36,
+        34,
+        31,
+        35,
+        33,
+        7,
+        67,
+        31,
+        31,
+        38,
+        19,
+        35,
+        35
+      ]
+    },
+    {
+      "name": "RussoOne-48-dark",
+      "file": "RussoOne.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        440,
+        74
+      ],
+      "glyph_widths": [
+        29,
+        26,
+        26,
+        26,
+        26,
+        13,
+        82,
+        26,
+        28,
+        17,
+        26,
+        28
+      ]
+    },
+    {
+      "name": "RussoOne-48-light",
+      "file": "RussoOne.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "wide",
+      "mono": false,
+      "size_px": [
+        440,
+        74
+      ],
+      "glyph_widths": [
+        29,
+        26,
+        26,
+        26,
+        26,
+        13,
+        82,
+        26,
+        28,
+        17,
+        26,
+        28
+      ]
+    },
+    {
+      "name": "Tektur-48-dark",
+      "file": "Tektur.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        431,
+        73
+      ],
+      "glyph_widths": [
+        27,
+        24,
+        24,
+        25,
+        24,
+        5,
+        24,
+        28,
+        23,
+        24,
+        26,
+        16,
+        26,
+        27
+      ]
+    },
+    {
+      "name": "Tektur-48-light",
+      "file": "Tektur.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        431,
+        73
+      ],
+      "glyph_widths": [
+        27,
+        24,
+        24,
+        25,
+        24,
+        5,
+        24,
+        28,
+        23,
+        24,
+        26,
+        16,
+        26,
+        27
+      ]
+    },
+    {
+      "name": "Oswald-48-dark",
+      "file": "Oswald.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        330,
+        80
+      ],
+      "glyph_widths": [
+        21,
+        17,
+        17,
+        17,
+        21,
+        6,
+        17,
+        18,
+        17,
+        16,
+        20,
+        13,
+        20,
+        20
+      ]
+    },
+    {
+      "name": "Oswald-48-light",
+      "file": "Oswald.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        330,
+        80
+      ],
+      "glyph_widths": [
+        21,
+        17,
+        17,
+        17,
+        21,
+        6,
+        17,
+        18,
+        17,
+        16,
+        20,
+        13,
+        20,
+        20
+      ]
+    },
+    {
+      "name": "AlumniSans-48-dark",
+      "file": "AlumniSans.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        265,
+        69
+      ],
+      "glyph_widths": [
+        14,
+        13,
+        12,
+        12,
+        12,
+        12,
+        13,
+        12,
+        12,
+        15,
+        6,
+        15,
+        15
+      ]
+    },
+    {
+      "name": "AlumniSans-48-light",
+      "file": "AlumniSans.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        265,
+        69
+      ],
+      "glyph_widths": [
+        14,
+        13,
+        12,
+        12,
+        12,
+        12,
+        13,
+        12,
+        12,
+        15,
+        6,
+        15,
+        15
+      ]
+    },
+    {
+      "name": "Cuprum-48-dark",
+      "file": "Cuprum.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        328,
+        76
+      ],
+      "glyph_widths": [
+        19,
+        17,
+        17,
+        17,
+        17,
+        5,
+        18,
+        20,
+        17,
+        16,
+        20,
+        11,
+        17,
+        18
+      ]
+    },
+    {
+      "name": "Cuprum-48-light",
+      "file": "Cuprum.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "narrow",
+      "mono": false,
+      "size_px": [
+        328,
+        76
+      ],
+      "glyph_widths": [
+        19,
+        17,
+        17,
+        17,
+        17,
+        5,
+        18,
+        20,
+        17,
+        16,
+        20,
+        11,
+        17,
+        18
+      ]
+    },
+    {
+      "name": "Rajdhani-Regular-48-dark",
+      "file": "Rajdhani-Regular.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        354,
+        73
+      ],
+      "glyph_widths": [
+        20,
+        18,
+        18,
+        18,
+        18,
+        4,
+        18,
+        18,
+        18,
+        16,
+        19,
+        11,
+        19,
+        18
+      ]
+    },
+    {
+      "name": "Rajdhani-Regular-48-light",
+      "file": "Rajdhani-Regular.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        354,
+        73
+      ],
+      "glyph_widths": [
+        20,
+        18,
+        18,
+        18,
+        18,
+        4,
+        18,
+        18,
+        18,
+        16,
+        19,
+        11,
+        19,
+        18
+      ]
+    },
+    {
+      "name": "Comfortaa-48-dark",
+      "file": "Comfortaa.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        442,
+        81
+      ],
+      "glyph_widths": [
+        31,
+        27,
+        24,
+        27,
+        27,
+        10,
+        27,
+        26,
+        25,
+        21,
+        23,
+        12,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Comfortaa-48-light",
+      "file": "Comfortaa.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        442,
+        81
+      ],
+      "glyph_widths": [
+        31,
+        27,
+        24,
+        27,
+        27,
+        10,
+        27,
+        26,
+        25,
+        21,
+        23,
+        12,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Rubik-48-dark",
+      "file": "Rubik.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        402,
+        76
+      ],
+      "glyph_widths": [
+        25,
+        20,
+        21,
+        21,
+        21,
+        21,
+        23,
+        21,
+        19,
+        23,
+        14,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Rubik-48-light",
+      "file": "Rubik.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        402,
+        76
+      ],
+      "glyph_widths": [
+        25,
+        20,
+        21,
+        21,
+        21,
+        21,
+        23,
+        21,
+        19,
+        23,
+        14,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "Nunito-48-dark",
+      "file": "Nunito.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        411,
+        75
+      ],
+      "glyph_widths": [
+        27,
+        18,
+        18,
+        21,
+        21,
+        9,
+        21,
+        22,
+        20,
+        18,
+        23,
+        18,
+        23,
+        22
+      ]
+    },
+    {
+      "name": "Nunito-48-light",
+      "file": "Nunito.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        411,
+        75
+      ],
+      "glyph_widths": [
+        27,
+        18,
+        18,
+        21,
+        21,
+        9,
+        21,
+        22,
+        20,
+        18,
+        23,
+        18,
+        23,
+        22
+      ]
+    },
+    {
+      "name": "Exo2-48-dark",
+      "file": "Exo2.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "dark",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        402,
+        76
+      ],
+      "glyph_widths": [
+        24,
+        21,
+        21,
+        21,
+        24,
+        11,
+        22,
+        24,
+        21,
+        20,
+        23,
+        14,
+        22,
+        21
+      ]
+    },
+    {
+      "name": "Exo2-48-light",
+      "file": "Exo2.ttf",
+      "size": 48,
+      "text": "Handgloves 0123",
+      "background": "light",
+      "weight": "any",
+      "slant": "upright",
+      "width": "normal",
+      "mono": false,
+      "size_px": [
+        402,
+        76
+      ],
+      "glyph_widths": [
+        24,
+        21,
+        21,
+        21,
+        24,
+        11,
+        22,
+        24,
+        21,
+        20,
+        23,
+        14,
+        22,
+        21
+      ]
+    }
+  ]
+}

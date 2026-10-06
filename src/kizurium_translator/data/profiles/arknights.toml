@@ -1,0 +1,31 @@
+# Arknights layout and OCR priors. DATA only; core never branches on the title.
+id = "arknights"
+lexicon_pack = "arknights"
+enable_game_glossary = true
+preferred_ocr = ["rapid", "tesseract"]
+dialogue_prior = "name-left body-right wide-gap novel dialogue"
+font_hint = ""
+
+[speaker]
+enabled = true
+gap_min_px = 16.0
+gap_glyph_mult = 1.5
+
+[timeouts]
+interval_sub = 0.28
+
+[[ui_zones]]
+name = "dialogue_band"
+x = 0.05
+y = 0.82
+w = 0.90
+h = 0.16
+unit = "frac"
+
+[[ui_zones]]
+name = "top_controls"
+x = 0.72
+y = 0.02
+w = 0.26
+h = 0.08
+unit = "frac"

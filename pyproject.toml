@@ -1,0 +1,175 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kizurium-translator"
+version = "0.1.0"
+description = "A Wayland-native screen translator and OCR tool for Linux, featuring live translation overlays and flexible text processing."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE", "NOTICE", "LICENSE.header"]
+authors = [{ name = "Kizuchann" }]
+keywords = ["wayland", "ocr", "translation", "screen-capture", "layer-shell", "linux", "live-capture", "accessibility", "tesseract", "ctranslate2", "optical-character-recognition", "subtitle", "overlay"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Other Environment",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Desktop Environment",
+  "Topic :: Utilities",
+]
+
+# PyGObject, pycairo, GTK4 and gtk4-layer-shell come from the distribution
+# (Arch: python-gobject, python-cairo, gtk4, gtk4-layer-shell) and must not be
+# installed by pip. The environment created by install.sh therefore uses
+# --system-site-packages so the bindings stay importable. Check with --doctor.
+dependencies = [
+  "Pillow>=10.0",
+  "numpy>=1.24",
+  "pytesseract>=0.3.10",
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+# Fast OCR engine. rapidocr>=3 supports Python 3.11-3.14; the older
+# rapidocr-onnxruntime package is restricted to Python <3.13 upstream and is not
+# used.
+rapid = ["rapidocr>=3.9", "onnxruntime>=1.17"]
+# Japanese game UI. Downloads a model on first use.
+meiki = ["meikiocr>=0.3.5"]
+# Fallback translation backends; the primary endpoint needs only requests.
+deep-translate = ["deep-translator>=1.11.4"]
+# Local OPUS-MT via CTranslate2. Packs installed with --pack-install.
+local-mt = [
+  "ctranslate2>=4.0",
+  "transformers>=4.36",
+  "sentencepiece>=0.1.99",
+  "huggingface-hub>=0.20",
+]
+all = [
+  "rapidocr>=3.9",
+  "onnxruntime>=1.17",
+  "meikiocr>=0.3.5",
+  "deep-translator>=1.11.4",
+  "ctranslate2>=4.0",
+  "transformers>=4.36",
+  "sentencepiece>=0.1.99",
+  "huggingface-hub>=0.20",
+]
+
+[dependency-groups]
+# Lint, type and dead-code tools used during development.
+dev = [
+  "ruff>=0.6",
+  "pyright>=1.1.350",
+  "vulture>=2.11",
+  "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Kizuchann/kizurium-translator"
+Repository = "https://github.com/Kizuchann/kizurium-translator"
+Issues = "https://github.com/Kizuchann/kizurium-translator/issues"
+
+[project.scripts]
+kizurium-translator = "kizurium_translator.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kizurium_translator"]
+# The selector QML is data, not code, so it has to be listed explicitly or the
+# installed command silently falls back to slurp. The faces are the same: they
+# are what the overlay measures against, and a wheel without them draws in
+# whatever the machine it was installed on happened to have.
+artifacts = [
+  "src/kizurium_translator/qml/**",
+  "src/kizurium_translator/fonts/*.ttf",
+  "src/kizurium_translator/fonts/LICENSE-OFL.txt",
+  "src/kizurium_translator/data/lexicons/**",
+  "src/kizurium_translator/data/language_packs/**",
+  "src/kizurium_translator/data/profiles/**",
+  "src/kizurium_translator/data/glossary/**",
+]
+
+[tool.hatch.build.targets.sdist]
+# The README shows screenshots of games, which are 6 MB each. They are worth
+# having in the repository, where they are what a reader sees, and not worth
+# shipping to a machine that installs the package and will never open the README
+# from disk.
+exclude = ["assets/screenshots/**"]
+
+[tool.uv]
+# Reminder: `uv sync` on its own creates a venv WITHOUT system site packages,
+# which hides PyGObject and breaks the overlay. Recreate it with:
+#   uv venv --clear --system-site-packages && uv sync
+
+[tool.pyright]
+# Type stubs for PyGObject and for the optional OCR/translation backends are not
+# shipped by the distributions, so reportMissingImports below stays off: the
+# imports are optional by design and their absence is not a finding.
+pythonVersion = "3.11"
+include = ["src", "tests"]
+exclude = ["**/__pycache__", ".venv"]
+typeCheckingMode = "basic"
+reportMissingImports = false
+reportMissingModuleSource = false
+# The OCR and GUI stacks are imported inside a try block that assigns None to
+# the names on failure, and every use is guarded by require_ocr()/require_gui().
+# Without this the checker reports each guarded call as a possible attribute
+# error on None, which buries the findings that are not guarded.
+reportOptionalMemberAccess = false
+reportInvalidTypeForm = false
+# Type stubs for these are not shipped by the distributions; the calls are
+# correct and the imports are optional by design.
+reportAttributeAccessIssue = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".venv", "__pycache__"]
+
+[tool.ruff.lint]
+# Selected deliberately rather than "ALL": the set that catches real defects
+# (undefined names, unused code, shadowing, bare excepts) without forcing
+# stylistic rewrites of working code.
+select = ["F", "E", "W", "I", "UP", "B", "SIM", "C4", "RET", "ARG"]
+ignore = [
+  # Tests put the source directory on sys.path before importing the package.
+  "E402",
+  # Exception handlers around third-party calls are deliberately broad: the
+  # caller degrades to "no result" and must not crash the live loop.
+  "BLE001",
+  # The glossary and replacement tables are one entry per line. Wrapping them
+  # makes the tables harder to read and to diff than the width limit is worth.
+  "E501",
+  # try/except/else reads worse than a negated condition where the branch is
+  # the common case.
+  "SIM105",
+  # A loop over a sequence with an unused companion is the shape the OCR passes
+  # use to keep the index explicit.
+  "B007",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG", "SIM", "RET", "F841", "F401", "B011", "B905"]
+# zip(a, a[1:]) pairs a sequence with its own shifted copy, and the alignment
+# tables build their operands together, so an unequal length is the intended
+# result rather than a bug to surface.
+# `live.py` стал каталогом. `B905` переехал на все слои: zip(а, а[1:]) строит
+# пары сдвинутой копии, и неравная длина - замысел, а не дефект.
+"src/kizurium_translator/core/text.py" = ["B905"]
+"src/kizurium_translator/typography/metrics.py" = ["B905"]
+"src/kizurium_translator/layout/*" = ["B905"]
+"src/kizurium_translator/ocr/*" = ["B905"]
+"src/kizurium_translator/translation/*" = ["B905"]
+"src/kizurium_translator/render/*" = ["B905"]
+"src/kizurium_translator/live/*" = ["B905"]
+# Реэкспорт: одно имя может прийти из двух слоёв, и это ровно то, зачем он
+# перечислен. Удаление «дубликата» убрало бы из пакета половину API.
+"src/kizurium_translator/*/__init__.py" = ["F811", "F401"]
+"src/kizurium_translator/__init__.py" = ["F811", "F401"]
