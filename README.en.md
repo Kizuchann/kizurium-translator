@@ -3,16 +3,24 @@
 <a href="README.en.md"><img src="https://img.shields.io/badge/lang-English-b4befe?style=for-the-badge&logo=readme&logoColor=white" alt="English"></a>
 <a href="README.md"><img src="https://img.shields.io/badge/ЯЗЫК-русский-cba6f7?style=for-the-badge&logo=readme&logoColor=white" alt="Русский"></a>
 
+<br><br>
+
+# Kizurium Translator
+
+**Wayland-native OCR, screen translation and real-time translation overlay for Linux**
+
+<p>
+  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland</strong>,
+  <strong>Arch Linux</strong> / Arch-based systems and <strong>Nix/NixOS</strong>.
+</p>
+
 <br>
 
-<h3>Kizurium Translator</h3>
-
-<br>
-
-<a href="#-screenshots-"><kbd>&nbsp;&nbsp;<br>SCREENSHOTS<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="#-installation-"><kbd>&nbsp;&nbsp;<br>INSTALL<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="docs/trust.md"><kbd>&nbsp;&nbsp;<br>PRIVACY<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="#-documentation-"><kbd>&nbsp;&nbsp;<br>DOCS<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
+<a href="#-screenshots-"><kbd>&nbsp;&nbsp;<br>SCREENSHOTS<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-quick-start-"><kbd>&nbsp;&nbsp;<br>QUICK START<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-features-"><kbd>&nbsp;&nbsp;<br>FEATURES<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="docs/trust.md"><kbd>&nbsp;&nbsp;<br>PRIVACY<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-documentation-"><kbd>&nbsp;&nbsp;<br>DOCS<br>&nbsp;&nbsp;</kbd></a>&ensp;
 <a href="https://github.com/Kizuchann/kizurium-translator/issues"><kbd>&nbsp;&nbsp;<br>ISSUES<br>&nbsp;&nbsp;</kbd></a>
 
 <br><br>
@@ -24,29 +32,83 @@
 
 </div>
 
+<br>
+
 ## • overview •
 
-A Wayland-native screen translator and OCR tool for Linux, featuring live
-translation overlays and flexible text processing.
+**Kizurium Translator** is a **Wayland-native OCR and screen translation tool for Linux**.
 
-Kizurium can capture a selected area of the screen, recognize text with OCR,
-translate it between languages, and display the result directly over the original
-content. The window is not intercepted: the overlay lives on its own layer.
+Select an area of the screen and Kizurium recognizes the text, translates it, and displays the result directly over the original content as a separate **Wayland overlay**. The application underneath does not need to be replaced or controlled.
 
-It supports three main workflows:
+For continuous translation, **Live Translation** watches a selected screen region, recognizes changing text, and updates the overlay as new content appears.
 
-- **OCR** — recognize text from a selected screen region.
-- **Translation** — translate text between a configurable source and target
-  language.
-- **Live Translation** — continuously recognize and translate changing text and
-  render the translation as a Wayland overlay.
+Kizurium is built for **Wayland desktops**, including **Hyprland**, with support for **Arch Linux / Arch-based distributions** and **Nix/NixOS**.
 
-Kizurium is designed for Wayland desktops and currently supports Arch-based
-distributions and Nix/NixOS, with additional manual installation paths available.
+## • features •
 
-## • installation •
+### OCR
 
-**Arch** — `pacman` installs it and can remove it:
+Recognize text from a selected region of the screen and return the original text.
+
+### Translation
+
+Recognize on-screen text, translate it between configurable source and target languages, and display the result over the original content.
+
+### Live Translation
+
+Continuously recognize changing text in a selected region and refresh the translation without requiring a new manual capture for every change.
+
+### Games and visual novels
+
+Designed for dialogue, subtitles, menus, UI elements, and other text that appears directly on screen.
+
+Game-specific profiles and dictionaries are optional. The default mode stays general-purpose and does not require a game profile.
+
+### Local and offline workflows
+
+Kizurium includes local OCR components and provides an `--offline-only` mode for workflows that must avoid network translation backends.
+
+---
+
+## • screenshots •
+
+<div align="center">
+
+### Menu
+
+<img src="assets/screenshots/menu-ru.png" width="48%" alt="Kizurium — translated menu">
+&nbsp;
+<img src="assets/screenshots/menu-en.png" width="48%" alt="Kizurium — original menu">
+
+</div>
+
+<br>
+
+<div align="center">
+
+### Dialogue
+
+<img src="assets/screenshots/dialogue-ru.png" width="48%" alt="Kizurium — translated dialogue">
+&nbsp;
+<img src="assets/screenshots/dialogue-en.png" width="48%" alt="Kizurium — original dialogue">
+
+</div>
+
+<br>
+
+<div align="center">
+
+**The translated text is rendered directly over the original screen content.**
+
+</div>
+
+> A Live Translation GIF or WebP is the best way to demonstrate the real-time workflow. Static screenshots show the result; animation shows how Kizurium actually behaves while the screen changes.
+
+---
+
+## • quick start •
+
+### Arch Linux
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -54,12 +116,13 @@ cd kizurium-translator
 makepkg -si
 ```
 
-The package already includes RapidOCR, ONNX Runtime and tesseract with English
-data. `pacman -Rns kizurium-translator` removes everything it installed;
-onnxruntime stays only if something else still needs it, which is how pacman
-dependencies work. There is no second install step.
+### Nix / NixOS
 
-**Any distribution** — the installer puts the command in `~/.local/bin`:
+```bash
+nix profile add github:Kizuchann/kizurium-translator
+```
+
+### Manual installation
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -67,139 +130,173 @@ cd kizurium-translator
 ./install.sh
 ```
 
-**NixOS / Nix** — flakes ship with the repository:
+Full installation guide:
 
-```bash
-nix profile add github:Kizuchann/kizurium-translator
-# or in configuration.nix
-#   inputs.kizurium.url = "github:Kizuchann/kizurium-translator";
-```
+[`docs/install.md`](docs/install.md)
 
-<details>
-<summary>Dependencies</summary>
+### First run
 
-```bash
-Pillow  numpy  pytesseract  requests          # pip
-python-gobject  python-cairo  gtk4  gtk4-layer-shell   # distribution
-tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
-wl-clipboard  aria2  libnotify
-```
-
-</details>
-
-To run it: pick a region with the mouse and get the translation on top of the
-text.
+Pick an area of the screen and start translation:
 
 ```bash
 kizurium-translator --toggle
 ```
 
-## • screenshots •
-
-<div align="center">
-
-| translated | original |
-|:--:|:--:|
-| <img src="assets/screenshots/menu-ru.png" width="49%"> | <img src="assets/screenshots/menu-en.png" width="49%"> |
-
-</div>
-
-<div align="center">
-
-| translated | original |
-|:--:|:--:|
-| <img src="assets/screenshots/dialogue-ru.png" width="49%"> | <img src="assets/screenshots/dialogue-en.png" width="49%"> |
-
-</div>
-
-## • installation •
+Start Live Translation for a region:
 
 ```bash
-./install.sh
-kizurium-translator --toggle
+kizurium-translator --live -g 0,0 1920x1080
 ```
 
-Full instructions — [`docs/install.md`](docs/install.md).
+---
 
-<details>
-<summary>Dependencies</summary>
+## • commands •
 
-```bash
-Pillow  numpy  pytesseract  requests          # pip
-python-gobject  python-cairo  gtk4  gtk4-layer-shell   # distribution
-tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
-wl-clipboard  aria2  libnotify
-```
-
-</details>
-
-<details>
-<summary>Commands</summary>
-
-| | |
+| Command | What it does |
 |---|---|
-| `--toggle` | pick a region with the mouse and start |
-| `--live -g 0,0 1920x1080` | live translation of a region |
-| `--ocr-copy` | region → text on the clipboard |
-| `--text` | the text translator window |
-| `--stop` | stop |
-| `--status` | session state |
-| `--doctor` | check the environment |
-| `--profile ID` | a game profile (opt-in) |
-| `--offline-only` | refuse network backends |
+| `--toggle` | pick a region with the mouse and start translation |
+| `--live -g 0,0 1920x1080` | live translation of the specified region |
+| `--ocr-copy` | recognize a region and copy the text to the clipboard |
+| `--text` | open the text translator |
+| `--stop` | stop the current session |
+| `--status` | show session status |
+| `--doctor` | check the environment and dependencies |
+| `--profile ID` | enable a game profile |
+| `--offline-only` | disable network backends |
 | `--pack-install ID` | install an offline pack |
 
+---
+
+## • installation and dependencies •
+
+The Arch package includes the components required by Kizurium for OCR and normal operation. Manual installation uses the required Wayland/GTK system packages together with the project's Python dependencies.
+
+<details>
+<summary>Main dependencies</summary>
+
+```text
+Pillow
+numpy
+pytesseract
+requests
+
+python-gobject
+python-cairo
+gtk4
+gtk4-layer-shell
+
+tesseract
+tesseract-data-eng
+tesseract-data-jpn
+tesseract-data-rus
+
+grim
+slurp
+quickshell
+wl-clipboard
+aria2
+libnotify
+```
+
 </details>
+
+---
 
 ## • privacy •
 
-More — [`docs/trust.md`](docs/trust.md).
+Kizurium does not use telemetry and does not contain built-in API keys.
 
-Screen captures never leave the machine. Only the text being translated goes
-out, and only when a network backend is chosen. The app holds no API keys and
-has no telemetry.
+**Screen captures are not sent over the network by the application itself.**
 
-## • dictionaries •
+When a network translation backend is selected, only the text being translated is sent to that backend.
 
-A dictionary of your own matters more than the model.
+More details:
+
+[`docs/trust.md`](docs/trust.md)
+
+For a local-only workflow:
+
+```bash
+kizurium-translator --offline-only
+```
+
+---
+
+## • dictionaries and profiles •
+
+Your own dictionary takes priority over profile, game-pack, and shared dictionaries.
+
+Import one with:
 
 ```bash
 kizurium-translator --import-dictionary ~/my-dict.tsv
 ```
 
-Priority: yours → profile → game pack → shared. Game vocabulary lives in
-opt-in packs, enabled through `--profile`. Without a profile it is universal
-mode.
+Priority order:
+
+```text
+your dictionary
+      ↓
+profile
+      ↓
+game pack
+      ↓
+shared dictionary
+```
+
+Game vocabulary is provided through **opt-in** packs and enabled with `--profile`.
+
+Without a profile, Kizurium stays in general-purpose mode.
+
+---
 
 ## • documentation •
 
-| | |
+| Document | Contents |
 |---|---|
-| [`docs/install.md`](docs/install.md) | installation, hotkeys |
-| [`docs/trust.md`](docs/trust.md) | what leaves the machine |
-| [`docs/layout-families.md`](docs/layout-families.md) | telling a line of dialogue from a button |
-| [`docs/external-dictionaries.md`](docs/external-dictionaries.md) | dictionary formats |
+| [`docs/install.md`](docs/install.md) | installation, setup, and hotkeys |
+| [`docs/trust.md`](docs/trust.md) | privacy and network requests |
+| [`docs/layout-families.md`](docs/layout-families.md) | distinguishing dialogue lines from buttons and other UI text |
+| [`docs/external-dictionaries.md`](docs/external-dictionaries.md) | external dictionary formats |
 | [`docs/language-packs.md`](docs/language-packs.md) | offline packs |
-| [`docs/licenses.md`](docs/licenses.md) | licences |
+| [`docs/licenses.md`](docs/licenses.md) | component licenses |
+
+---
+
+## • development •
+
+Run the test suite:
 
 ```bash
-uv run pytest -q          # 1935 tests
+uv run pytest -q
+```
+
+Run the linter:
+
+```bash
 uv run ruff check src/
 ```
 
+---
+
 ## • known limitations •
 
-- Who is speaking comes from the shape `Name: line`. No name in frame, no answer.
-- Boss glyphs can be marked "not text" by a profile. Automatically — no.
-- Slant and weight are measured off the ink; below 34px of ink the slant is not
-  measured.
+- Speaker gender is inferred from the `Name: line` form. Without a visible speaker name, it cannot be determined automatically.
+- Text inside complex UI elements can be recognized incorrectly. A profile can mark such regions as `not text`.
+- Slant and weight are estimated from the ink structure; for ink heights below 34 px, slant measurement is skipped.
 
 ---
 
 <div align="center">
 
+**Kizurium Translator** · **Wayland** · **Hyprland** · **Linux** · **Arch Linux** · **Nix/NixOS** · **OCR** · **Screen Translation** · **Live Translation**
+
+<br><br>
+
 **AGPL-3.0-or-later** · [LICENSE](LICENSE) · [NOTICE](NOTICE)
 
-<sub>Screenshots are from games belonging to their rights holders, shown as a demonstration.</sub>
+<br>
+
+<sub>Screenshots are from games owned by their respective rights holders and are shown solely to demonstrate the translator.</sub>
 
 </div>
