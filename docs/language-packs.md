@@ -1,68 +1,275 @@
-# Offline language packs + CTranslate2
+# Офлайн-перевод и языковые паки
 
-## Для людей (нормальный путь)
+Kizurium умеет переводить без сетевого backend, если для нужной языковой пары установлен локальный **CTranslate2 (CT2) pack**.
 
-После клона репы:
+Готовые паки устанавливаются из каталога проекта. Вручную скачивать и конвертировать OPUS-MT в CT2 для обычного использования не требуется.
+
+---
+
+## Быстрая установка
+
+После клонирования репозитория запустите:
 
 ```bash
 ./install.sh
-# спросить «офлайн-перевод?» → Enter (Y)
 ```
 
-Или без вопросов:
+Установщик предложит включить офлайн-перевод. Для обычной установки достаточно согласиться с предложением.
+
+Можно сразу включить офлайн-паки без дополнительных вопросов:
 
 ```bash
 ./install.sh --system --offline-packs
 ```
 
-Позже / отдельно:
+Паки можно поставить и позже:
 
 ```bash
 kizurium-translator --pack-install all
-kizurium-translator --packs
 ```
 
-Модели лежат в ``$XDG_DATA_HOME/kizurium-translator/models/<id>/``.
-Конвертировать OPUS-MT руками **не нужно** — каталог качает готовые CT2
-артефакты с Hugging Face.
-
-## Status
+Посмотреть, что уже установлено:
 
 ```bash
 kizurium-translator --packs
 ```
 
-Shows `Installed` or `Download (one command)` for each catalog slot
-(`opus-mt-en-ru`, `opus-mt-ja-ru`).
+---
 
-## Strict offline
+## Где хранятся модели
+
+Модели находятся в пользовательском каталоге данных Kizurium:
+
+```text
+$XDG_DATA_HOME/kizurium-translator/models/<id>/
+```
+
+Если `XDG_DATA_HOME` не задан, используется стандартный пользовательский каталог данных.
+
+Каждый pack хранится в собственном каталоге, например:
+
+```text
+models/opus-mt-en-ru/
+models/opus-mt-ja-ru/
+```
+
+---
+
+## Что входит в каталог паков
+
+Первый набор локальных моделей использует **pair-specific OPUS-MT** для конкретных направлений перевода.
+
+Например:
+
+```text
+opus-mt-en-ru
+opus-mt-ja-ru
+```
+
+Это означает, что для каждой пары используется отдельная модель, а не одна универсальная модель на все языки.
+
+Посмотреть текущий каталог и состояние паков:
+
+```bash
+kizurium-translator --packs
+```
+
+Для каждого слота будет показано одно из двух состояний:
+
+```text
+Installed
+Download (one command)
+```
+
+Если pack уже установлен, повторно скачивать его не нужно.
+
+---
+
+## Строгий офлайн-режим
+
+Чтобы Kizurium вообще не использовал сетевые переводчики, включите:
 
 ```toml
 # ~/.config/kizurium-translator/config.toml
+
 [translation]
 offline_only = true
 ```
 
-Or: `kizurium-translator --offline-only …`
+или запускайте отдельную команду с:
 
-In this mode the HTTP session / gtx / MyMemory backends are **never
-instantiated**. Glossary, cache, translation memory, and installed CT2 packs
-still work. Missing pack → log `language pack not installed` and an empty
-result (no silent network fallback).
+```bash
+kizurium-translator --offline-only ...
+```
 
-## Manual / developer path
+В этом режиме сетевые backend'ы не используются. В частности, не создаются HTTP-сессии для удалённого перевода и не происходит скрытого перехода на сеть, если локального перевода не хватает.
 
-Only if you already have a local CT2 directory:
+При этом продолжают работать локальные данные Kizurium:
+
+- установленные CT2 packs;
+- словари;
+- translation memory;
+- кэш.
+
+### Что происходит, если нужного pack нет
+
+Kizurium не будет молча уходить в интернет.
+
+При отсутствии нужной локальной модели:
+
+```text
+language pack not installed
+```
+
+и перевод для этого запроса не возвращается.
+
+Это удобно для действительно автономного режима: можно заранее поставить нужные модели и быть уверенным, что после запуска приложение не начнёт отправлять текст в сеть.
+
+---
+
+## Установка конкретного pack
+
+Установить все доступные паки:
+
+```bash
+kizurium-translator --pack-install all
+```
+
+Для отдельного pack можно указать его ID:
+
+```bash
+kizurium-translator --pack-install opus-mt-en-ru
+```
+
+или:
+
+```bash
+kizurium-translator --pack-install opus-mt-ja-ru
+```
+
+После установки снова проверьте состояние:
+
+```bash
+kizurium-translator --packs
+```
+
+---
+
+## Обычный пользовательский путь
+
+Для большинства пользователей достаточно следующей последовательности:
+
+```bash
+git clone https://github.com/Kizuchann/kizurium-translator.git
+cd kizurium-translator
+./install.sh
+```
+
+Позже, когда понадобится локальный перевод:
+
+```bash
+kizurium-translator --pack-install all
+```
+
+Проверить установку:
+
+```bash
+kizurium-translator --packs
+```
+
+Включить строгий офлайн-режим:
+
+```bash
+kizurium-translator --offline-only
+```
+
+Никакой ручной конвертации моделей в CT2 для этого сценария не требуется.
+
+---
+
+## Если у вас уже есть CT2-модель
+
+Ручной режим нужен в основном разработчикам или тем, у кого уже есть собственный локальный CT2-каталог.
+
+Установите optional dependency:
 
 ```bash
 pip install 'kizurium-translator[local-mt]'
-kizurium-translator --pack-install opus-mt-en-ru --from /path/to/ct2-model
 ```
 
-License: OPUS-MT models are CC-BY-4.0 — see `docs/licenses-inventory.toml`.
+Затем передайте каталог модели:
 
-## What is *not* default
+```bash
+kizurium-translator \
+  --pack-install opus-mt-en-ru \
+  --from /path/to/ct2-model
+```
 
-NLLB is intentionally **not** a catalog pack and not the default local backend.
-First release uses pair-specific OPUS-MT models only. See
-[licenses.md](licenses.md).
+Здесь `/path/to/ct2-model` — уже готовый каталог CTranslate2.
+
+Kizurium не требует от вас самостоятельно выполнять конвертацию OPUS-MT → CT2, если используется официальный каталог паков.
+
+---
+
+## OPUS-MT и лицензии
+
+Каталог локальных паков использует модели **OPUS-MT**.
+
+Для используемых OPUS-MT моделей применяется лицензия **CC-BY-4.0**.
+
+Подробности по лицензиям компонентов:
+
+[`licenses.md`](licenses.md)
+
+Инвентарь лицензий:
+
+[`licenses-inventory.toml`](licenses-inventory.toml)
+
+---
+
+## Почему не NLLB
+
+**NLLB не является catalog pack в первом релизе Kizurium.**
+
+Основной локальный путь сейчас построен вокруг pair-specific **OPUS-MT** моделей.
+
+Это сделано специально: Kizurium не пытается включить одну большую универсальную модель в стандартный набор паков, а использует отдельные модели для конкретных языковых направлений.
+
+Поэтому список доступных локальных переводов определяется именно каталогом Kizurium.
+
+---
+
+## Полезные команды
+
+```bash
+# Показать состояние паков
+kizurium-translator --packs
+
+# Установить все паки
+kizurium-translator --pack-install all
+
+# Установить один pack
+kizurium-translator --pack-install opus-mt-en-ru
+
+# Запретить сетевые backend'ы
+kizurium-translator --offline-only
+
+# Проверить окружение
+kizurium-translator --doctor
+```
+
+---
+
+## Связанные разделы
+
+Установка и настройка:
+
+[`install.md`](install.md)
+
+Приватность и сетевые запросы:
+
+[`trust.md`](trust.md)
+
+Лицензии:
+
+[`licenses.md`](licenses.md)
