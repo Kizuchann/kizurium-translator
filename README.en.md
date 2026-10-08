@@ -102,8 +102,6 @@ Kizurium includes local OCR components and provides an `--offline-only` mode for
 
 </div>
 
-> A Live Translation GIF or WebP is the best way to demonstrate the real-time workflow. Static screenshots show the result; animation shows how Kizurium actually behaves while the screen changes.
-
 ---
 
 ## • quick start •
