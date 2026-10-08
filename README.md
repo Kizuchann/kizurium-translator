@@ -3,16 +3,24 @@
 <a href="README.md"><img src="https://img.shields.io/badge/ЯЗЫК-русский-cba6f7?style=for-the-badge&logo=readme&logoColor=white" alt="Русский"></a>
 <a href="README.en.md"><img src="https://img.shields.io/badge/lang-English-b4befe?style=for-the-badge&logo=readme&logoColor=white" alt="English"></a>
 
+<br><br>
+
+# Kizurium Translator
+
+**Wayland-native OCR, screen translation and real-time translation overlay for Linux**
+
+<p>
+  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland</strong>,
+  <strong>Arch Linux</strong> / Arch-based systems and <strong>Nix/NixOS</strong>.
+</p>
+
 <br>
 
-<h3>Kizurium Translator</h3>
-
-<br>
-
-<a href="#-скриншоты-"><kbd>&nbsp;&nbsp;<br>SCREENSHOTS<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="#-установка-"><kbd>&nbsp;&nbsp;<br>INSTALL<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="docs/trust.md"><kbd>&nbsp;&nbsp;<br>PRIVACY<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
-<a href="#-документация-"><kbd>&nbsp;&nbsp;<br>DOCS<br>&nbsp;&nbsp;</kbd></a>&ensp;&ensp;
+<a href="#-скриншоты-"><kbd>&nbsp;&nbsp;<br>СКРИНШОТЫ<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-быстрый-старт-"><kbd>&nbsp;&nbsp;<br>ЗАПУСК<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-возможности-"><kbd>&nbsp;&nbsp;<br>ВОЗМОЖНОСТИ<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="docs/trust.md"><kbd>&nbsp;&nbsp;<br>ПРИВАТНОСТЬ<br>&nbsp;&nbsp;</kbd></a>&ensp;
+<a href="#-документация-"><kbd>&nbsp;&nbsp;<br>ДОКУМЕНТАЦИЯ<br>&nbsp;&nbsp;</kbd></a>&ensp;
 <a href="https://github.com/Kizuchann/kizurium-translator/issues"><kbd>&nbsp;&nbsp;<br>ISSUES<br>&nbsp;&nbsp;</kbd></a>
 
 <br><br>
@@ -24,26 +32,81 @@
 
 </div>
 
-## • описание •
+<br>
 
-Kizurium — переводчик текста на экране и OCR-инструмент для Wayland.
+## • что такое Kizurium •
 
-Выделяешь область, Kizurium распознаёт текст, переводит его и рисует перевод
-поверх оригинала. Окно не перехватывается: оверлей живёт отдельным слоем.
+**Kizurium Translator** — экранный OCR и переводчик для Linux на **Wayland**.
 
-Три режима:
+Выбираешь область экрана — Kizurium распознаёт текст, переводит его и показывает результат поверх исходного содержимого. Перевод выводится отдельным **Wayland overlay**, поэтому приложению под ним не нужно отдавать управление окном.
 
-- **OCR** — распознать текст выбранной области.
-- **Перевод** — перевести текст между языками, исходный и целевой задаются конфигом.
-- **Живой перевод** — постоянно распознавать меняющийся текст и показывать
-  перевод оверлеем Wayland.
+Для постоянного перевода есть **Live Translation**: Kizurium периодически анализирует указанную область экрана, отслеживает изменившийся текст и обновляет перевод поверх него.
 
-Рассчитан на Wayland. Поддерживает Arch-based дистрибутивы и Nix/NixOS, есть
-ручная установка.
+Проект рассчитан на обычную работу в Wayland-средах и отдельно поддерживает **Hyprland**. Для установки предусмотрены **Arch / Arch-based системы** и **Nix/NixOS**.
 
-## • установка •
+## • возможности •
 
-**Arch** — `pacman` ставит и снимает:
+### OCR
+
+Распознаёт текст в выбранной области экрана и возвращает исходный текст.
+
+### Перевод
+
+Распознаёт текст, переводит его между заданными языками и отображает результат поверх оригинала.
+
+### Live Translation
+
+Непрерывно распознаёт меняющийся текст в выбранной области и обновляет перевод без необходимости заново делать скриншот вручную.
+
+### Игры и визуальные новеллы
+
+Подходит для диалогов, интерфейсов, субтитров и другого текста, который появляется прямо на экране. Игровые профили и словари подключаются отдельно и не требуются для базового режима.
+
+### Локальная работа
+
+Для офлайн-сценариев предусмотрены локальные OCR-компоненты и режим `--offline-only`.
+
+---
+
+## • скриншоты •
+
+<div align="center">
+
+### Меню
+
+<img src="assets/screenshots/menu-ru.png" width="48%" alt="Kizurium — меню, перевод">
+&nbsp;
+<img src="assets/screenshots/menu-en.png" width="48%" alt="Kizurium — меню, оригинал">
+
+</div>
+
+<br>
+
+<div align="center">
+
+### Диалог
+
+<img src="assets/screenshots/dialogue-ru.png" width="48%" alt="Kizurium — диалог, перевод">
+&nbsp;
+<img src="assets/screenshots/dialogue-en.png" width="48%" alt="Kizurium — диалог, оригинал">
+
+</div>
+
+<br>
+
+<div align="center">
+
+**Перевод отображается непосредственно поверх содержимого экрана.**
+
+</div>
+
+> Для демонстрации Live Translation сюда лучше поставить один или два GIF/WebP-ролика с реальным процессом работы. Статичные скриншоты показывают результат, а анимация сразу показывает сам принцип работы.
+
+---
+
+## • быстрый старт •
+
+### Arch Linux
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -51,12 +114,13 @@ cd kizurium-translator
 makepkg -si
 ```
 
-Пакет сразу включает RapidOCR, ONNX Runtime и tesseract с английскими
-данными. `pacman -Rns kizurium-translator` убирает всё, что он поставил;
-onnxruntime останется, только если он нужен чему-то ещё — это обычное поведение
-зависимостей. Ничего доустанавливать не нужно.
+### Nix / NixOS
 
-**Любой дистрибутив** — установщик кладёт команду в `~/.local/bin`:
+```bash
+nix profile add github:Kizuchann/kizurium-translator
+```
+
+### Ручная установка
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -64,136 +128,171 @@ cd kizurium-translator
 ./install.sh
 ```
 
-**NixOS / Nix** — flakes включены в репозиторий:
+Полная инструкция:
 
-```bash
-nix profile add github:Kizuchann/kizurium-translator
-# или в configuration.nix
-#   inputs.kizurium.url = "github:Kizuchann/kizurium-translator";
-```
+[`docs/install.md`](docs/install.md)
 
-<details>
-<summary>Зависимости</summary>
+### Первый запуск
 
-```bash
-Pillow  numpy  pytesseract  requests          # pip
-python-gobject  python-cairo  gtk4  gtk4-layer-shell   # дистрибутив
-tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
-wl-clipboard  aria2  libnotify
-```
-
-</details>
-
-Запуск: выделить область мышкой и получить перевод поверх текста.
+Выделить область экрана и запустить перевод:
 
 ```bash
 kizurium-translator --toggle
 ```
 
-## • скриншоты •
-
-<div align="center">
-
-| перевод | оригинал |
-|:--:|:--:|
-| <img src="assets/screenshots/menu-ru.png" width="49%"> | <img src="assets/screenshots/menu-en.png" width="49%"> |
-
-</div>
-
-<div align="center">
-
-| перевод | оригинал |
-|:--:|:--:|
-| <img src="assets/screenshots/dialogue-ru.png" width="49%"> | <img src="assets/screenshots/dialogue-en.png" width="49%"> |
-
-</div>
-
-## • установка •
+Запустить живой перевод области:
 
 ```bash
-./install.sh
-kizurium-translator --toggle
+kizurium-translator --live -g 0,0 1920x1080
 ```
 
-Полная инструкция — [`docs/install.md`](docs/install.md).
+---
 
-<details>
-<summary>Зависимости</summary>
+## • команды •
 
-```bash
-Pillow  numpy  pytesseract  requests          # pip
-python-gobject  python-cairo  gtk4  gtk4-layer-shell   # дистрибутив
-tesseract{,-data-eng,-data-jpn,-data-rus}  grim  slurp  quickshell
-wl-clipboard  aria2  libnotify
-```
-
-</details>
-
-<details>
-<summary>Команды</summary>
-
-| | |
+| Команда | Что делает |
 |---|---|
-| `--toggle` | выбрать область мышкой и запустить |
-| `--live -g 0,0 1920x1080` | живой перевод области |
-| `--ocr-copy` | область → текст в буфер обмена |
-| `--text` | окно переводчика текста |
-| `--stop` | остановить |
-| `--status` | состояние сессии |
-| `--doctor` | проверка окружения |
-| `--profile ID` | игровой профиль (opt-in) |
+| `--toggle` | выбрать область мышкой и запустить перевод |
+| `--live -g 0,0 1920x1080` | живой перевод указанной области |
+| `--ocr-copy` | распознать область и скопировать текст в буфер обмена |
+| `--text` | открыть текстовый переводчик |
+| `--stop` | остановить текущую сессию |
+| `--status` | показать состояние сессии |
+| `--doctor` | проверить окружение и зависимости |
+| `--profile ID` | включить игровой профиль |
 | `--offline-only` | запретить сетевые бэкенды |
-| `--pack-install ID` | поставить офлайн-пак |
+| `--pack-install ID` | установить офлайн-пак |
+
+---
+
+## • установка и зависимости •
+
+Arch-пакет включает необходимые компоненты для OCR и работы Kizurium. В ручной установке используются системные зависимости Wayland/GTK и Python-пакеты проекта.
+
+<details>
+<summary>Основные зависимости</summary>
+
+```text
+Pillow
+numpy
+pytesseract
+requests
+
+python-gobject
+python-cairo
+gtk4
+gtk4-layer-shell
+
+tesseract
+tesseract-data-eng
+tesseract-data-jpn
+tesseract-data-rus
+
+grim
+slurp
+quickshell
+wl-clipboard
+aria2
+libnotify
+```
 
 </details>
+
+---
 
 ## • приватность •
 
-Подробнее — [`docs/trust.md`](docs/trust.md).
+Kizurium не использует телеметрию и не содержит встроенных API-ключей.
 
-Снимки экрана никуда не уходят. В сеть уходит только текст, который
-переводится, и только если выбран сетевой бэкенд. API-ключей у приложения
-нет, телеметрии нет.
+**Снимки экрана не отправляются в сеть сами по себе.**
 
-## • словари •
+При использовании сетевого переводчика наружу уходит только текст, выбранный для перевода, и только при соответствующей настройке backend.
 
-Свой словарь важнее модели перевода.
+Подробнее:
+
+[`docs/trust.md`](docs/trust.md)
+
+Для локального режима:
+
+```bash
+kizurium-translator --offline-only
+```
+
+---
+
+## • словари и профили •
+
+Собственный словарь имеет приоритет над профилем, игровым пакетом и общим словарём.
+
+Импорт:
 
 ```bash
 kizurium-translator --import-dictionary ~/my-dict.tsv
 ```
 
-Приоритет: ваш → профиль → пак игры → общий. Игровые термины лежат в
-opt-in паках, включаются через `--profile`. Без профиля — универсальный режим.
+Порядок приоритета:
+
+```text
+ваш словарь
+    ↓
+профиль
+    ↓
+игровой пакет
+    ↓
+общий словарь
+```
+
+Игровые термины подключаются через `--profile` и остаются **opt-in**.
+
+---
 
 ## • документация •
 
-| | |
+| Документ | Содержание |
 |---|---|
-| [`docs/install.md`](docs/install.md) | установка, горячие клавиши |
-| [`docs/trust.md`](docs/trust.md) | что уходит в сеть |
-| [`docs/layout-families.md`](docs/layout-families.md) | как отличить реплику от кнопки |
-| [`docs/external-dictionaries.md`](docs/external-dictionaries.md) | форматы словарей |
+| [`docs/install.md`](docs/install.md) | установка, запуск и горячие клавиши |
+| [`docs/trust.md`](docs/trust.md) | приватность и сетевые запросы |
+| [`docs/layout-families.md`](docs/layout-families.md) | определение структуры текста и реплик |
+| [`docs/external-dictionaries.md`](docs/external-dictionaries.md) | форматы внешних словарей |
 | [`docs/language-packs.md`](docs/language-packs.md) | офлайн-паки |
-| [`docs/licenses.md`](docs/licenses.md) | лицензии |
+| [`docs/licenses.md`](docs/licenses.md) | лицензии компонентов |
+
+---
+
+## • разработка •
+
+Запустить тесты:
 
 ```bash
-uv run pytest -q          # 1935 тестов
+uv run pytest -q
+```
+
+Проверить код:
+
+```bash
 uv run ruff check src/
 ```
 
+---
+
 ## • известные ограничения •
 
-- Пол говорящего — по форме `Имя: реплика`. Без имени в кадре не определяется.
-- Иероглифы на боссах — профилем можно пометить зону «не текст», автоматически нет.
-- Наклон и жирность меряются по чернилам; ниже 34px чернил наклон не меряется.
+- Пол говорящего определяется по форме `Имя: реплика`. Если имени нет в кадре, автоматически определить его нельзя.
+- Текст внутри сложных элементов интерфейса может быть ошибочно распознан. Профилем можно пометить такие области как `не текст`.
+- Наклон и жирность оцениваются по структуре чернил; для текста с высотой менее 34 px измерение наклона не выполняется.
 
 ---
 
 <div align="center">
 
+**Kizurium Translator** · **Wayland** · **Hyprland** · **Linux** · **Arch Linux** · **Nix/NixOS** · **OCR** · **Screen Translation** · **Live Translation**
+
+<br><br>
+
 **AGPL-3.0-or-later** · [LICENSE](LICENSE) · [NOTICE](NOTICE)
 
-<sub>Скриншоты — из игр их правообладателей, как демонстрация работы переводчика.</sub>
+<br>
+
+<sub>Скриншоты — из игр их правообладателей и используются только для демонстрации работы переводчика.</sub>
 
 </div>
