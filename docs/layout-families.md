@@ -1,107 +1,236 @@
 # Layout families
 
-Profiles do **not** detect the game from pixels. They are opt-in priors
-(`--profile`, env, config). This file is the other side of that decision: what
-the **universal** path must understand from vision alone, distilled from a
-range of screens that have nothing in common but pixels.
+Kizurium does not need to know which game or application is on screen to understand the
+general structure of its text.
 
-Goal: common visual features, not nine special hacks.
+The universal recognition path works from **visual layout**: position, spacing, text
+density, alignment, grouping, orientation, and other features visible in the current
+frame.
 
-## How profiles relate
+Profiles are optional. A profile is a user-selected set of hints for a known layout;
+it is not a game detector and it is never chosen automatically from the screenshot.
 
-| Mode | Who chooses | What changes |
-| --- | --- | --- |
-| Default (no profile) | nobody | only general heuristics |
-| Profile on | user / config / env | OCR order, gap numbers, lexicon pack, soft UI-zone role hints |
+## Profiles and the universal path
 
-A still image in a viewer works the same as a live game: OCR sees pixels.
-Selecting a profile for whatever is on screen is a **test convenience**, not
-auto-detection.
+| Mode | Selected by | Effect |
+|---|---|---|
+| **Default** | nobody | Uses only the general layout and OCR heuristics |
+| **Profile enabled** | user, config, or environment | Adds optional ordering hints, spacing values, vocabulary, and UI-zone hints |
 
-## Families (game-agnostic)
+The same universal rules are used whether the source is a still screenshot or a live
+screen.
 
-### A — Novel dialogue strip
+A profile can make a known layout easier to interpret, but the screen itself remains the
+source of truth.
 
-Examples: visual-novel dialogue with a speaker name and a body, and dialogue
-drawn over character art; DDLC, Steins;Gate, Danganronpa.
+---
 
-Signals:
+## Layout families
 
-- dark band near the bottom (often y ≳ 0.70 of frame)
-- short left token (speaker) + longer right/body text, wide gap
-- name plate just above a multi-line or text-heavy body, small vertical gap
-- choices and short system labels stay their own blocks, not part of the body
-- a second text system far from the strip (phone, toast) stays independent
-- optional mid-screen choice stack
+These families describe recurring visual patterns that can appear in many unrelated
+applications and games.
 
-Already covered by: name/dialogue gap, speaker scoring, roles, bottom-band VN
-heuristics in prepare.
+They are deliberately based on **layout**, not on game-specific names.
 
-### B — Top / corner HUD controls
+### A — Dialogue and narration
 
-Examples: AUTO/OFF/SKIP corner labels over a dialogue strip; many mobile UIs.
+Typical structure:
 
-Signals: short labels, top fringe, high contrast, separate boxes that must
-not merge.
+- a speaker name followed by a longer body of text;
+- a wide dialogue area near the bottom of the screen;
+- a small gap between the speaker label and the body;
+- several lines of dialogue grouped into one block;
+- choices or short system messages kept separate from the dialogue.
 
-### Many zones on one screen
+Common variations include dialogue over artwork, a separate name plate, or another text
+area elsewhere on the screen.
 
-A narration block, a title beside it, HUD labels and a status line are
-different zones. A long sentence in a panel is a paragraph, not a button:
-sizing it as one label blows the type up to the box height.
+The important signals are the **relative position, spacing, width, and grouping** of the
+text blocks — not the title of the game.
 
-### C — Dense multi-column panels
+### B — HUD labels and small controls
 
-Examples: stat and menu tables, and a two-mirrored-column screen.
+Typical examples are short labels such as:
 
-Signals: gutters, column independence, no cross-merge.
+- `AUTO`
+- `SKIP`
+- status indicators;
+- small corner controls;
+- compact buttons.
 
-### D — Sloped / rotated text
+These elements are usually short, well separated, and visually distinct from nearby
+dialogue or narration.
 
-Examples: a rhythm-game results screen with angled labels.
+The main rule is to avoid merging several small controls into one text block.
 
-Signals: per-block angle, mixed with axis-aligned neighbours.
+### C — Multiple independent zones
 
-### E — Mixed script in one frame
+A single screen may contain several unrelated text areas at once:
 
-Examples: Japanese and English in the same frame, including furigana over kana.
+- a narration panel;
+- a title;
+- a quest or status line;
+- a temporary notification;
+- a button or control.
 
-Signals: per-block language; JP must not suppress EN beside it.
+Each zone should remain independent.
 
-### Gameplay HUD beside changing lines
+A long sentence inside a panel is still a paragraph even when the panel itself has the
+shape of a large UI element. Its font size should not be inferred only from the total
+panel height.
 
-A quest line, a loot toast, a spoken subtitle and a status chip are four
-zones. The toast and a "pick up" prompt leave when the line does. The status
-chip stays. Nothing here is a title branch.
+### D — Columns and tables
 
-### F — Gameplay HUD over 3D / art
+Some screens arrange text into two or more columns:
 
-Examples: open-world HUDs with quest text and transient toasts over rendered
-art; Elden Ring, GTA, Honkai.
+- statistics;
+- inventory or menu panels;
+- mirrored information blocks;
+- table-like layouts.
 
-Signals: sparse overlay text, transient toasts, non-Latin runes, must not
-clear stable HUD when one line changes.
+Useful signals include:
 
-### G — Modals / system copy
+- consistent column alignment;
+- stable gutters between columns;
+- repeated horizontal structure.
 
-Examples: a download-confirmation modal, an age-rating notice, a web page.
+Text from one column must not be merged with text from a neighbouring column simply
+because the lines are vertically close.
 
-Signals: centred card, two button styles, mostly static.
+### E — Rotated or sloped text
 
-## What this does *not* do
+Some interfaces use text that is not aligned to the normal horizontal axis.
 
-- No `if game == "…"`.
-- No shipping copyrighted screenshots in the repo.
-- No pretending profiles auto-pick from the screen.
+The important signals are:
 
-Research for titles we have no samples of (DDLC, Danganronpa, …) feeds
-**family A–G** above when it teaches a new signal; it does not add a per-title
-branch.
+- the orientation of each text block;
+- the presence of both rotated and normal text in the same frame;
+- consistent orientation inside one block.
 
-## Checklist when adding a heuristic
+Rotated text should be treated as its own block rather than forcing the whole screen into
+one orientation.
 
-1. Name the **family** (A–G), not the game.
-2. Prove it on the screen where you found it **and** two others from different
-   families.
-3. If a profile TOML only stores numbers that general code already defaults to,
-   delete the redundant field — do not leave dead DATA.
+### F — Mixed scripts
+
+A single screen can contain several writing systems at once, for example:
+
+- Japanese with English UI labels;
+- Latin text beside Japanese text;
+- furigana above Japanese text;
+- symbols mixed with normal text.
+
+Language detection belongs to the individual text block.
+
+Recognizing Japanese in one block must not cause nearby English text to be discarded or
+merged incorrectly.
+
+### G — Gameplay overlays and transient UI
+
+Gameplay screens often combine text with very different lifetimes:
+
+- a persistent HUD element;
+- a quest or objective;
+- a subtitle or spoken line;
+- a temporary loot or status notification;
+- a contextual interaction prompt.
+
+The important distinction is not only where the text is, but also **which elements belong
+to the same visual zone**.
+
+A temporary notification should be allowed to disappear without causing stable HUD text
+to be treated as the same block.
+
+### H — Modals and system messages
+
+Modal dialogs and system-style panels usually have a different structure from normal
+gameplay text:
+
+- a centered card or panel;
+- a heading or explanatory paragraph;
+- one or more clearly separated buttons;
+- mostly static content while the modal is open.
+
+Buttons, labels, and the main message should remain separate elements even when they are
+inside the same card.
+
+---
+
+## Why these families exist
+
+The point of a layout family is to capture a **reusable visual pattern**.
+
+For example, the rule
+
+> "a short label separated from a longer text block"
+
+can apply to many dialogue layouts.
+
+The rule
+
+> "two aligned columns separated by a stable gutter"
+
+can apply to inventory screens, statistics panels, settings pages, and many other
+interfaces.
+
+A heuristic should therefore describe a visual relationship that can be reused elsewhere,
+not a special case for one particular title.
+
+---
+
+## What profiles are allowed to change
+
+A profile may provide optional information such as:
+
+- OCR ordering preferences;
+- expected spacing or gap values;
+- vocabulary or glossary data;
+- soft hints about the role of a UI zone.
+
+These values are **hints**, not replacements for the universal recognition logic.
+
+A profile must not be required for the application to understand a layout that can be
+recognized from the screen itself.
+
+---
+
+## What profiles do not do
+
+Profiles do **not**:
+
+- identify a game automatically;
+- inspect pixels and decide which game is running;
+- replace general layout heuristics with a per-game implementation;
+- turn a title-specific observation into a hard-coded `if game == ...` branch.
+
+Choosing a profile because it matches the current screen is an explicit user action.
+
+---
+
+## Adding a new heuristic
+
+When a new visual pattern is discovered:
+
+1. Describe the **layout relationship**, not the game where it was found.
+2. Give the pattern a family or add a new family when it represents a genuinely different
+   structure.
+3. Test the heuristic on the original screen and on unrelated layouts.
+4. Keep profile data only when it provides information that the universal path cannot
+   reasonably infer on its own.
+5. Remove configuration fields that merely duplicate existing defaults.
+
+A good heuristic should answer:
+
+> **"What visual property makes these text blocks belong together?"**
+
+rather than:
+
+> **"Which game uses this exact layout?"**
+
+---
+
+## Guiding principle
+
+Kizurium should learn **patterns of text layout**, not memorize individual games.
+
+The goal is one reusable recognition system that can handle unfamiliar screens using the
+same visual rules it already knows.
