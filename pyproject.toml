@@ -73,7 +73,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Kizuchann/kizurium-translator"
+Homepage = "https://kizuchann.github.io/kizurium-translator"
 Repository = "https://github.com/Kizuchann/kizurium-translator"
 Issues = "https://github.com/Kizuchann/kizurium-translator/issues"
 
