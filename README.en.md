@@ -10,7 +10,7 @@
 **Wayland-native OCR, screen translation and real-time translation overlay for Linux**
 
 <p>
-  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland</strong>,
+  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland / KDE / Niri / MangoWM</strong>,
   <strong>Arch Linux</strong> / Arch-based systems and <strong>Nix/NixOS</strong>.
 </p>
 
