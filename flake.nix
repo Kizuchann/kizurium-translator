@@ -34,7 +34,7 @@
           python = pkgs.python3;
           kizurium-translator = python.pkgs.buildPythonApplication {
             pname = "kizurium-translator";
-            version = "1.3.0";
+            version = "1.3.5";
             pyproject = true;
             src = pkgs.lib.cleanSourceWith {
               src = self;
@@ -87,6 +87,12 @@
               gtk4
               gtk4-layer-shell
               libnotify
+              # ScreenCast hands the app a PipeWire FD; GStreamer reads it via
+              # pipewiresrc. The base package also provides Gst/GstApp/GstVideo
+              # typelibs used by PyGObject.
+              gst_all_1.gstreamer
+              gst_all_1.gst-plugins-base
+              pipewire
             ];
 
             # The suite runs headless - it needs no compositor - but pytest and
@@ -117,6 +123,15 @@
               # on LD_LIBRARY_PATH - narrowly, for this binary only.
               "--prefix LD_LIBRARY_PATH : ${
                 pkgs.lib.makeLibraryPath (with pkgs; [ gtk4-layer-shell gtk4 ])
+              }"
+              # Nix keeps GStreamer plugins in separate store paths. Make the
+              # base elements and PipeWire source visible to the app at runtime.
+              "--set GST_PLUGIN_SYSTEM_PATH_1_0 ${
+                pkgs.lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
+                  gstreamer
+                  gst-plugins-base
+                  pkgs.pipewire
+                ])
               }"
             ];
 
@@ -188,6 +203,9 @@
               pkgs.quickshell
               pkgs.gtk4
               pkgs.gtk4-layer-shell
+              pkgs.gst_all_1.gstreamer
+              pkgs.gst_all_1.gst-plugins-base
+              pkgs.pipewire
               pkgs.aria2
             ];
             # eng/rus/jpn tessdata — package set varies by nixpkgs; users may
@@ -236,7 +254,7 @@
         {
           tests = python.pkgs.buildPythonApplication {
             pname = "kizurium-translator-tests";
-            version = "1.3.0";
+            version = "1.3.5";
             pyproject = true;
             src = self;
             build-system = with python.pkgs; [ hatchling ];

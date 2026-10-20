@@ -14,7 +14,7 @@ if _vendor.is_dir() and str(_vendor) not in _sys.path:
     _sys.path.append(str(_vendor))
 del _Path, _sys, _vendor
 
-__version__ = "1.3.0"
+__version__ = "1.3.5"
 
 APP_ID = "ru.kizurium.translator"
 

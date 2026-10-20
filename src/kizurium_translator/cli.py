@@ -1042,15 +1042,18 @@ def _portal_capture_line():
 
         gi.require_version("Gst", "1.0")
         gi.require_version("GstApp", "1.0")
+        gi.require_version("GstVideo", "1.0")
         from gi.repository import Gst
 
         Gst.init(None)
         if Gst.ElementFactory.find("pipewiresrc") is None:
             return Line(name=name, status=Status.MISSING, required=True,
-                        detail="нет GStreamer pipewiresrc (Arch: pacman -S gst-plugin-pipewire)")
+                        detail=("нет GStreamer pipewiresrc "
+                                "(Arch: pacman -S gst-plugin-pipewire; Nix: pipewire + GST plugin path)"))
     except Exception as exc:  # noqa: BLE001
         return Line(name=name, status=Status.MISSING, required=True,
-                    detail=f"GStreamer недоступен ({type(exc).__name__}): gst-plugins-base, python-gobject")
+                    detail=(f"GStreamer недоступен ({type(exc).__name__}: {exc}); "
+                            "нужны PyGObject и GStreamer typelibs (Nix: gst_all_1.gst-plugins-base)"))
     return Line(name=name, status=Status.OK, required=True, detail="GStreamer + pipewiresrc")
 
 

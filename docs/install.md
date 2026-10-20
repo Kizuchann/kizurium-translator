@@ -289,8 +289,15 @@ wl-clipboard
 tesseract
 gtk4
 gtk4-layer-shell
+GStreamer + gst-plugins-base + PipeWire (ScreenCast capture)
 aria2
 ```
+
+В Plasma на Wayland захват экрана идёт через XDG ScreenCast portal. Flake
+включает GStreamer typelibs и `pipewiresrc`; после обновления flake примените
+пакет заново (`nix profile upgrade` для профиля или `nixos-rebuild switch` для
+модуля). `--doctor` покажет подробную причину, если GStreamer всё ещё не
+загружается.
 
 ### Использовать другую версию или собственный пакет
 

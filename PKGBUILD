@@ -8,7 +8,7 @@
 #   git pull && makepkg -su
 
 pkgname=kizurium-translator
-pkgver=1.3.0
+pkgver=1.3.5
 pkgrel=1
 pkgdesc="Wayland-native screen translator and OCR tool for Linux with live translation overlays"
 arch=('x86_64' 'aarch64')
