@@ -49,3 +49,4 @@ native/target/
 .tools/
 
 !native/Cargo.lock
+SKILL.md

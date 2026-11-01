@@ -29,7 +29,7 @@ Kizurium не содержит встроенной телеметрии и ан
 | `provider = "custom"` | адрес, который задал пользователь | текст строки |
 | `allow_slow_translation = true` | MyMemory и Google через `deep-translator` | текст строки |
 | Установка и обновление офлайн-паков (`--pack-install`) | `huggingface.co` или `hf-mirror.com` (`HF_ENDPOINT`) | запрос файла модели |
-| Установка моделей Bergamot (`--bergamot-install`) | каталог `translatelocally.com`, Remote Settings Mozilla (`firefox.settings.services.mozilla.com`) | запрос каталога и файла модели |
+| Установка моделей Bergamot (`--bergamot-install`) | каталог `translatelocally.com`, файлы `data.statmt.org`, Remote Settings Mozilla (`firefox.settings.services.mozilla.com`) | запрос каталога и файла модели |
 | Подготовка runtime Bergamot (`--bergamot-runtime-install`) | PyPI через `uv` | запрос пакета |
 | Установка через `install.sh` | зеркала pacman, PyPI, `files.pythonhosted.org` (RapidOCR, ONNX Runtime в `PKGBUILD`) | запрос пакетов |
 
@@ -85,7 +85,7 @@ runtime и модель.
 ## Удаление и очистка
 
 ```bash
-./install.sh --uninstall                 # спросит про конфиг, кэш и модели
+./install.sh --uninstall                 # интерактивно спросит про конфиг, кэш и модели
 ./install.sh --uninstall --purge         # конфиг, кэш, логи и офлайн-модели
 ./install.sh --clean-cache               # кэш переводов и логи, приложение остаётся
 kizurium-translator --uninstall --purge  # если папки репозитория уже нет

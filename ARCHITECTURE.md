@@ -1,6 +1,6 @@
 # Kizurium architecture
 
-Baseline: the source tree at version 1.3.0, inspected 2026-10-18.
+Baseline: the source tree at version 1.3.5, inspected 2026-11-02.
 This document describes the code as it is. Earlier MAE/SSIM, word
 completeness/precision and OCR timing figures are historical reports and are not
 reproduced here; the only measurements below are synthetic helper microbenchmarks.
@@ -19,10 +19,9 @@ ScreenCast/PipeWire paths; these are optional runtime branches, not a reason to
 add KWin-specific dependencies. Other capture paths use grim and slurp.
 
 **Selector:** the region selector is `gtk_selector.py`, launched by `selector.py`
-as a child GTK layer-shell process. No QML or Quickshell code runs in this tree.
-`flake.nix` still lists the `quickshell` package, which is a packaging leftover and
-not a runtime dependency. Packaging declarations should not be confused with runtime
-ownership. A second selector would duplicate the current protocol and lifecycle.
+as a child GTK layer-shell process. No QML or Quickshell code runs in this tree,
+and packaging no longer declares Quickshell. A second selector would duplicate
+the current protocol and lifecycle.
 
 **Python baseline:** project metadata permits Python >=3.11; the reference
 interpreter for the measurements below is 3.14.8. Python 3.15+ is a forward
@@ -166,7 +165,8 @@ is initialized before showing overlay windows; click-through is implemented by
 empty input regions and no keyboard interactivity. Pango/Cairo rendering stays
 in Python orchestration; the settings/main-window modernization will use themed
 widgets and scoped CSS without changing card rendering, typography or capture
-paint barriers. Quickshell has no rendering responsibility.
+paint barriers. The selector draws only its own toolbar and has no responsibility
+for translation cards.
 
 ## 7. Performance assessment and native boundary
 

@@ -1,7 +1,7 @@
 # Nix flake for Kizurium Translator (NixOS / nix profile / nix run).
 #
-# Runtime needs Wayland + grim + gtk4-layer-shell (+ quickshell for region
-# select); no particular compositor is required.
+# Runtime needs Wayland + grim + gtk4-layer-shell; the region selector is a
+# GTK4 + layer-shell process. No particular compositor is required.
 #
 # Quick start:
 #   nix run .#
@@ -100,8 +100,8 @@
             # by `checks` below rather than here.
             doCheck = false;
 
-            # grim, slurp, wl-copy, tesseract and quickshell are separate
-            # programs the overlay shells out to, so a profile that holds only
+            # grim, slurp, wl-copy and tesseract are separate programs the
+            # overlay shells out to, so a profile that holds only
             # this package would not find them. `makeWrapperArgs` reaches the
             # wrapper buildPythonApplication already writes - the old postFixup
             # called wrapProgram on that finished wrapper, which nested a third
@@ -113,7 +113,6 @@
                   slurp
                   wl-clipboard
                   tesseract
-                  quickshell
                   libnotify
                   aria2
                 ])
@@ -200,7 +199,6 @@
               pkgs.slurp
               pkgs.wl-clipboard
               pkgs.tesseract
-              pkgs.quickshell
               pkgs.gtk4
               pkgs.gtk4-layer-shell
               pkgs.gst_all_1.gstreamer
@@ -279,10 +277,8 @@
                 # The build sandbox has no /bin, and the suite does shell out
                 # to /bin/true and friends in a few places.
                 coreutils
-                # selector.select_region refuses to run without a shell to
-                # start, and the selector tests exercise that refusal path, so
-                # the check needs the binary they are looking for.
-                quickshell
+                # The selector tests mock the GTK process, but the suite shells
+                # out to /bin/true and friends in a few places.
                 bash
                 grim
                 wl-clipboard

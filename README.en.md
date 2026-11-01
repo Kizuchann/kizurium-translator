@@ -10,7 +10,7 @@
 **Wayland-native OCR, screen translation and real-time translation overlay for Linux**
 
 <p>
-  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland / KDE / Niri / MangoWM</strong>,
+  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland / KDE / Niri / MangoWC / Sway</strong>,
   <strong>Arch Linux</strong> / Arch-based systems and <strong>Nix/NixOS</strong>.
 </p>
 
@@ -120,7 +120,7 @@ makepkg -si
 nix profile add github:Kizuchann/kizurium-translator
 ```
 
-### Manual installation
+### Installer script (Arch)
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -128,7 +128,7 @@ cd kizurium-translator
 ./install.sh
 ```
 
-Full installation guide:
+Full installation guide, including manual installation on other distributions:
 
 [`docs/install.md`](docs/install.md)
 
@@ -161,9 +161,17 @@ kizurium-translator --live "0,0 1920x1080"
 | `--doctor` | check the environment and dependencies |
 | `--profile ID` | enable a game profile |
 | `--offline-only` | disable network backends |
-| `--pack-install ID` | install an offline pack |
+| `--pack-install ID` | download offline pack models (translation needs the `local-mt` runtime) |
 | `--packs` | list offline packs and their state |
 | `--model-status` | OCR engines, Bergamot runtime and models, offline packs |
+| `--region "X,Y WxH"` | set the region manually |
+| `--output` | select a whole monitor |
+| `--import-dictionary PATH` | import an XUnity/TENUKI dictionary |
+| `--tm-list` | list translation-memory entries |
+| `--bergamot-install en-ru` | download and verify a Bergamot model |
+| `--bergamot-runtime-install` | prepare the Bergamot runtime |
+| `--ocr-warmup rapid` | pre-fetch RapidOCR models |
+| `--uninstall [--purge]` | remove the installation; `--purge` also wipes data |
 
 ---
 
@@ -189,15 +197,22 @@ gtk4-layer-shell
 
 tesseract
 tesseract-data-eng
-tesseract-data-jpn
-tesseract-data-rus
+tesseract-data-jpn   # optional: Japanese OCR
+tesseract-data-rus   # optional: Russian OCR
 
 grim
 slurp
 wl-clipboard
 aria2
 libnotify
+
+gstreamer
+gst-plugins-base
+gst-plugin-pipewire   # KDE ScreenCast portal capture
+xdg-desktop-portal
 ```
+
+The Arch package also installs RapidOCR, ONNX Runtime and their Python dependencies.
 
 </details>
 

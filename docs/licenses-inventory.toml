@@ -75,7 +75,22 @@ commercial_use = true
 bundled = false
 optional = true
 checksum = ""
-notes = "Optional pip extra. ONNX model assets follow upstream; re-check on upgrade."
+notes = "Optional pip extra. The Arch package vendors the RapidOCR wheel and its PP-OCRv6 models. ONNX model assets follow upstream; re-check on upgrade."
+
+[[component]]
+name = "ONNX Runtime"
+source = "Microsoft / ONNX Runtime"
+url = "https://github.com/microsoft/onnxruntime"
+version = "1.30.0"
+license = "MIT"
+license_url = "https://opensource.org/licenses/MIT"
+redistributable = true
+attribution_required = false
+commercial_use = true
+bundled = false
+optional = true
+checksum = ""
+notes = "Optional pip extra with rapid. The Arch package vendors the manylinux wheel in its private _vendor directory."
 
 [[component]]
 name = "PaddleOCR-assets"

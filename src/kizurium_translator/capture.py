@@ -1,6 +1,6 @@
 """Screen capture.
 
-Region selection is not here: it is the Quickshell overlay in selector.py.
+Region selection is not here: it is the GTK4 layer-shell overlay in selector.py.
 On KDE two backends are used, in this order and never mixed up silently:
 
 * ``org.kde.KWin.ScreenShot2``, tried once. KWin only answers it for apps it has
@@ -79,8 +79,8 @@ def ensure_wayland_env() -> None:
 
     A keybind runs the command through the compositor, and the compositor's
     environment is not guaranteed to carry WAYLAND_DISPLAY. Without it grim and
-    quickshell both fail: the region selector simply did nothing when launched
-    from the keybind, while working when started from a shell. So the variables
+    the GTK selector both fail: the region selector simply did nothing when
+    launched from the keybind, while working when started from a shell. So the variables
     are recovered from XDG_RUNTIME_DIR when they are missing.
     """
     if not os.environ.get("WAYLAND_DISPLAY"):

@@ -785,6 +785,12 @@ def cmd_packs() -> int:
             state = "Download (local --from)"
         print(f"  {row.info.label:40} {state}")
         print(f"    id={row.info.id}  {row.info.source}→{row.info.target}  {row.info.engine}")
+    from importlib.util import find_spec
+
+    if find_spec("ctranslate2") is None:
+        print()
+        print("runtime ctranslate2 не найден: локальный CT2-перевод не заработает")
+        print("без extra local-mt (--model-status, --doctor).")
     print()
     print("установка всего:  kizurium-translator --pack-install all")
     print("один пакет:       kizurium-translator --pack-install opus-mt-en-ru")
@@ -941,7 +947,17 @@ def cmd_pack_install(args: argparse.Namespace) -> int:
         if failed:
             print("Не установилось.", flush=True)
             return 1
-        print("Готово. en→ru и ja→ru на месте, без интернета переводят.", flush=True)
+        from importlib.util import find_spec
+
+        if find_spec("ctranslate2") is None:
+            print(
+                "Готово. Модели en→ru и ja→ru скачаны. Для локального перевода "
+                "нужен runtime local-mt (ctranslate2, transformers, sentencepiece, "
+                "huggingface-hub); в Arch: ./install.sh --user --offline-packs.",
+                flush=True,
+            )
+        else:
+            print("Готово. en→ru и ja→ru на месте, без интернета переводят.", flush=True)
         return 0
 
     from_path = Path(args.pack_from).expanduser() if args.pack_from else None
@@ -1275,7 +1291,7 @@ def cmd_doctor(conf: Config) -> int:
 
     # --- Config: what is in effect, without printing a path or its contents. ---
     cfg.add("target", Status.OK, detail=f"{conf.target_lang} ← {conf.source_lang}")
-    cfg.add("engine", Status.OK, detail=str(getattr(conf, "engine", "") or "auto"))
+    cfg.add("engines", Status.OK, detail=", ".join(conf.ocr_engines) or "нет")
     cfg.add("offline_only", Status.DISABLED if conf.offline_only else Status.OK, detail=str(bool(conf.offline_only)))
     try:
         from .profile import active

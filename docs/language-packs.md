@@ -1,6 +1,6 @@
 # Офлайн-перевод и языковые паки
 
-Kizurium умеет переводить без сетевого backend, если для нужной языковой пары установлен локальный **CTranslate2 (CT2) pack**.
+Kizurium умеет переводить без сетевого backend, если установлен runtime **CTranslate2** (`local-mt`) и для нужной языковой пары есть локальный **CT2 pack**.
 
 Готовые паки устанавливаются из каталога проекта. Вручную скачивать и конвертировать OPUS-MT в CT2 для обычного использования не требуется.
 
@@ -14,18 +14,22 @@ Kizurium умеет переводить без сетевого backend, есл
 ./install.sh
 ```
 
-Установщик предложит включить офлайн-перевод. Для обычной установки достаточно согласиться с предложением.
-
-Можно сразу включить офлайн-паки без дополнительных вопросов:
+Обычный `./install.sh` в Arch-режиме ставит пакет и **не** добавляет CT2-паки:
+установщик предлагает только Bergamot. В Nix-ветке можно скачать модели, но
+runtime `ctranslate2` всё равно не входит в пакет. Чтобы включить офлайн-перевод
+в Arch, используйте пользовательский режим (`--user`) и выберите паки в списке
+либо запустите установку без вопросов:
 
 ```bash
 ./install.sh --user --yes --offline-packs
 ```
 
-Флаг `--offline-packs` требует режима `--user`. В Arch-режиме (`./install.sh` без
-`--user`) паки ставятся командой `--pack-install` после установки.
+В Arch-режиме флаг `--offline-packs` требует `--user`: он добавляет extra
+`local-mt` (runtime CTranslate2) и скачивает модели. Без `--user` команда
+`--pack-install` только скачивает модели, но не ставит runtime; для локального
+перевода используйте `./install.sh --user --offline-packs`.
 
-Паки можно поставить и позже:
+Модели паков можно скачать и позже (runtime `local-mt` при этом всё равно нужен):
 
 ```bash
 kizurium-translator --pack-install all
@@ -77,14 +81,18 @@ opus-mt-ja-ru
 kizurium-translator --packs
 ```
 
-Для каждого слота будет показано одно из двух состояний:
+Для каждого слота будет показано одно из трёх состояний:
 
 ```text
-Installed
+Installed (<version>)
 Download (one command)
+Download (local --from)
 ```
 
-Если pack уже установлен, повторно скачивать его не нужно.
+`Installed` означает, что файлы модели уже лежат в каталоге данных. Наличие
+runtime CTranslate2 проверяют `--model-status` и `--doctor`: модели и runtime
+устанавливаются отдельно. Если pack уже установлен, повторно скачивать его не
+нужно.
 
 ---
 
@@ -109,7 +117,7 @@ kizurium-translator --offline-only ...
 
 При этом продолжают работать локальные данные Kizurium:
 
-- установленные CT2 packs;
+- установленные CT2 packs — если установлен runtime `local-mt`;
 - словари;
 - translation memory;
 - кэш.
@@ -168,11 +176,9 @@ cd kizurium-translator
 ./install.sh
 ```
 
-Позже, когда понадобится локальный перевод:
-
-```bash
-kizurium-translator --pack-install all
-```
+Позже, когда понадобится локальный перевод, помните, что `--pack-install all`
+скачивает только модели. Для самого перевода нужен runtime `local-mt` — в Arch:
+`./install.sh --user --offline-packs` (или Bergamot).
 
 Проверить установку:
 
@@ -283,6 +289,9 @@ kizurium-translator --pack-install opus-mt-en-ru
 
 # Запретить сетевые backend'ы
 kizurium-translator --offline-only
+
+# Состояние runtime, моделей и паков
+kizurium-translator --model-status
 
 # Проверить окружение
 kizurium-translator --doctor

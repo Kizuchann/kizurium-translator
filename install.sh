@@ -302,10 +302,11 @@ Usage: ./install.sh          # interactive — recommended
 
 Options (optional; most people never need them):
   --user              legacy per-user venv install (no pacman registration);
-                      use this for Meiki, PaddleOCR or Python extras
+                      use this for Meiki, PaddleOCR, offline packs or Python extras
   --yes / -y          non-interactive: system pkgs + RapidOCR
   --extras "a b"      rapid | meiki | deep-translate | local-mt | all
-  --offline-packs     also download en→ru / ja→ru CT2 models (~160 MB)
+  --offline-packs     download en→ru / ja→ru CT2 models (~160 MB);
+                      on Arch this requires --user (adds local-mt)
   --no-offline-packs  skip offline models (default in express / --yes)
   --bergamot "en-ru"  also install Bergamot local translation: model(s) from Mozilla's
                       verified repository (+ native binding when a wheel exists)
@@ -899,8 +900,8 @@ EOF
             echo "  Запуск:  nix run $REPO_DIR#"
             echo "  Doctor:  nix run $REPO_DIR# -- --doctor"
             (cd "$REPO_DIR" && nix run .# -- --doctor) || {
-                warn "doctor ругнулся — смотри вывод выше (часто нет grim/quickshell в PATH)"
-                echo "  Добавь в environment.systemPackages: grim quickshell gtk4-layer-shell tesseract …"
+                warn "doctor ругнулся — смотри вывод выше (часто нет grim в PATH)"
+                echo "  Добавь в environment.systemPackages: grim slurp wl-clipboard gtk4-layer-shell tesseract …"
                 echo "  Подробно: docs/install.md"
             }
             ;;
@@ -943,7 +944,7 @@ EOF
     # Optional offline packs if binary is available
     if have kizurium-translator; then
         if [[ "$OFFLINE_PACKS" == ask ]]; then
-            if ask_yn "Скачать offline-перевод en→ru / ja→ru (~160 МБ)? Онлайн и так работает." N; then
+            if ask_yn "Скачать offline-модели en→ru / ja→ru (~160 МБ)? Для перевода на Nix нужен отдельный runtime ctranslate2." N; then
                 OFFLINE_PACKS=yes
             else
                 OFFLINE_PACKS=no
@@ -952,6 +953,8 @@ EOF
         if [[ "$OFFLINE_PACKS" == yes ]]; then
             step "Офлайн language packs"
             kizurium-translator --pack-install all || warn "пакеты не все скачались — позже: kizurium-translator --pack-install all"
+            warn "Nix-пакет не включает ctranslate2: модели скачаны, но локальный перевод"
+            warn "заработает только после добавления local-mt в окружение (docs/language-packs.md)."
         fi
     fi
 
@@ -1333,7 +1336,7 @@ if [[ "$BERGAMOT" == yes && -n "$BERGAMOT_PAIRS" ]]; then
         BERGAMOT_OK=0
         warn "движок Bergamot не установился: модели будут скачаны и проверены, перевод заработает после:"
         warn "  $BIN_DIR/kizurium-translator --bergamot-runtime-install"
-        warn "Рабочая офлайн-замена сейчас: ./install.sh --offline-packs (OPUS-MT)"
+        warn "Рабочая офлайн-замена сейчас: ./install.sh --user --offline-packs (OPUS-MT)"
     fi
     for pair in $BERGAMOT_PAIRS; do
         if "$BIN_DIR/kizurium-translator" --bergamot-install "$pair"; then

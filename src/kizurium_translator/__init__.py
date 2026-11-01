@@ -1,6 +1,6 @@
 """Kizurium Translator — live screen translation for Wayland.
 
-Standalone app: does not read or modify compositor or Quickshell configs.
+Standalone app: does not read or modify compositor or other shell configs.
 """
 
 from pathlib import Path as _Path

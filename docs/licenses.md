@@ -3,8 +3,9 @@
 Machine-readable copy: `docs/licenses-inventory.toml`.
 
 This inventory is the gate before bundling or downloading optional packs.
-Rows marked `bundled = false` are **not** shipped in the wheel; the user
-installs or imports them separately.
+Rows marked `bundled = false` are **not** shipped in the Python wheel; the user
+installs or imports them separately. A distribution package may still vendor an
+optional engine: the Arch package bundles RapidOCR and ONNX Runtime.
 
 ## Required checklist
 
@@ -13,8 +14,10 @@ installs or imports them separately.
 | JMdict / JMnedict | CC BY-SA (EDRDG) | yes, with share-alike | required | yes w/ attribution | no (optional later) |
 | Tatoeba | CC BY 2.0 (sentences; check per-row) | yes with attribution | required | yes w/ attribution | no |
 | OPUS-MT (Helsinki-NLP) | CC BY 4.0 (models; verify card) | usually yes | required | usually yes | no (optional) |
-| RapidOCR / PaddleOCR assets | Apache-2.0 (engine); models vary | engine yes; models check | model-dependent | model-dependent | no (pip optional) |
-| CTranslate2 | MIT | yes | courtesy | yes | no (optional) |
+| RapidOCR (engine + PP-OCRv6 models) | Apache-2.0 | yes | not required | yes | Arch package yes; wheel no |
+| PaddleOCR assets | Apache-2.0 (engine); models vary | engine yes; models check | model-dependent | model-dependent | no (referenced via RapidOCR; not vendored directly) |
+| ONNX Runtime | MIT | yes | courtesy | yes | Arch package yes; wheel no |
+| CTranslate2 | MIT | yes | courtesy | yes | no (optional `local-mt` runtime) |
 | pymorphy3 (+ dicts) | MIT (lib); dicts often LGPL/OpenCorpora | lib yes; dicts check | dict-dependent | dict-dependent | no (not yet a dep) |
 | MeikiOCR assets | see package; model download on first use | package-dependent | package-dependent | package-dependent | no (pip optional) |
 
@@ -27,10 +30,15 @@ installs or imports them separately.
 | pytesseract | Apache-2.0 | wrapper; Tesseract binary is Apache-2.0 |
 | requests | Apache-2.0 | pip; talks to gtx/MyMemory only on cache miss |
 | deep-translator | Apache-2.0 | optional extra |
-| rapidocr | Apache-2.0 | optional extra |
-| onnxruntime | MIT | optional extra with rapid |
+| rapidocr | Apache-2.0 | optional extra; bundled in the Arch package |
+| onnxruntime | MIT | optional extra with rapid; bundled in the Arch package |
+| ctranslate2 | MIT | optional extra `local-mt` |
+| transformers | Apache-2.0 | optional extra `local-mt` |
+| sentencepiece | Apache-2.0 | optional extra `local-mt` |
+| huggingface-hub | Apache-2.0 | optional extra `local-mt` |
+| PyYAML | MIT | Bergamot runtime; Arch dependency `python-yaml` |
+| python-keyring | MIT | optional: store provider keys in Secret Service/KWallet |
 | GTK4 / PyGObject / gtk4-layer-shell | LGPL | distro packages, not pip |
-| Quickshell | (distro) | selector host |
 | Bundled fonts (OFL) | OFL | see `src/.../fonts/LICENSE-OFL.txt` |
 
 ## Online services (not redistributed)

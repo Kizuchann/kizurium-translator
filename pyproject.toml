@@ -84,8 +84,8 @@ kizurium-translator = "kizurium_translator.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/kizurium_translator"]
-# The selector QML is data, not code, so it has to be listed explicitly or the
-# installed command silently falls back to slurp. The faces are the same: they
+# The GTK selector is code shipped as a module. Fonts and committed data are
+# listed explicitly so a wheel does not depend on the build machine's files. The faces are the same: they
 # are what the overlay measures against, and a wheel without them draws in
 # whatever the machine it was installed on happened to have.
 artifacts = [

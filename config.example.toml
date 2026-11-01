@@ -2,11 +2,28 @@
 # Путь: ~/.config/kizurium-translator/config.toml
 # Ключи необязательны. Сеть и данные: docs/trust.md
 
+[general]
+# Язык интерфейса. Сейчас встроенные строки русские; ключ читается и сохраняется.
+interface_language = "ru"
+
 [translation]
 # Язык перевода. Основной пользователь проекта русскоязычный, поэтому ru.
 target = "ru"
 # auto — определять язык по тексту.
 source = "auto"
+# google | yandex | deepl | azure | custom | bergamot.
+# Ключи API хранятся в keyring, а не в этом файле. Опции провайдера задаются
+# в [translation.providers.<id>], например:
+# [translation.providers.deepl]
+# plan = "free"
+# timeout = 15
+provider = "google"
+# Пауза между сетевыми запросами, секунд.
+request_interval = 1.8
+# Задержка перед OCR после изменения кадра, секунд.
+ocr_debounce = 0.38
+# Каталог модели Bergamot; пусто — искать установленную модель в кэше Kizurium.
+bergamot_model_path = ""
 # translate.googleapis.com (gtx), без API-ключа. При 429 — cooldown_s.
 use_gtx = true
 # Не создавать онлайн-бэкенды (нужен локальный language pack).
@@ -38,10 +55,7 @@ interval_sub = 0.28
 # Реже на статичном UI, когда карточки уже на экране.
 interval_ui_stable = 4.5
 # Сколько секунд карточки скрыты перед снимком, чтобы OCR не читал сам себя.
-hide_for_capture_s = 0.18
-# Перечитывать только изменившуюся часть области, а не весь кадр.
-# Заметно быстрее на субтитрах и диалогах, где меняются одна-две строки.
-incremental = true
+hide_for_capture_s = 0.10
 hide_for_sub_s = 0.10
 
 [detection]
@@ -57,6 +71,9 @@ ocr_key_sim = 0.88
 probe_side = 320
 
 [ocr]
+# Язык распознавания для Tesseract: auto или коды через + (eng, rus, jpn,
+# eng+rus). Не связан с языком перевода.
+language = "auto"
 # Порядок движков. Отсутствующие пропускаются автоматически.
 #   rapid     — RapidOCR, быстрый, для латиницы и игр
 #   meiki     — MeikiOCR, японский игровой UI
@@ -64,6 +81,14 @@ probe_side = 320
 engines = ["rapid", "meiki", "tesseract"]
 # Самая длинная сторона кадра, попадающая в OCR.
 max_screenshot_side = 4672
+# Перечитывать только изменившиеся области, а не весь кадр.
+incremental = true
+
+[ocr.options]
+# Дополнительные параметры OCR. Пустая секция = значения по умолчанию.
+# tesseract_psm = "auto"
+# tesseract_pixel_font = false
+# det_side_len = "auto"
 
 [overlay]
 # Цвет карточки и текста, 0..1.

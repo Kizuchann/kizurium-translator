@@ -10,7 +10,7 @@
 **Wayland-native OCR, screen translation and real-time translation overlay for Linux**
 
 <p>
-  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland / KDE / Niri / MangoWM</strong>,
+  Designed for <strong>Wayland</strong>, with support for <strong>Hyprland / KDE / Niri / MangoWC / Sway</strong>,
   <strong>Arch Linux</strong> / Arch-based systems and <strong>Nix/NixOS</strong>.
 </p>
 
@@ -118,7 +118,7 @@ makepkg -si
 nix profile add github:Kizuchann/kizurium-translator
 ```
 
-### Ручная установка
+### Скрипт установки (Arch)
 
 ```bash
 git clone https://github.com/Kizuchann/kizurium-translator.git
@@ -126,7 +126,7 @@ cd kizurium-translator
 ./install.sh
 ```
 
-Полная инструкция:
+Полная инструкция, включая ручную установку на других дистрибутивах:
 
 [`docs/install.md`](docs/install.md)
 
@@ -159,9 +159,17 @@ kizurium-translator --live "0,0 1920x1080"
 | `--doctor` | проверить окружение и зависимости |
 | `--profile ID` | включить игровой профиль |
 | `--offline-only` | запретить сетевые бэкенды |
-| `--pack-install ID` | установить офлайн-пак |
+| `--pack-install ID` | скачать модели офлайн-пака (для перевода нужен runtime `local-mt`) |
 | `--packs` | показать офлайн-паки и их состояние |
 | `--model-status` | состояние OCR-движков, Bergamot и паков |
+| `--region "X,Y WxH"` | задать область вручную |
+| `--output` | выбрать целый монитор |
+| `--import-dictionary PATH` | импортировать XUnity/TENUKI-словарь |
+| `--tm-list` | показать записи translation memory |
+| `--bergamot-install en-ru` | скачать и проверить модель Bergamot |
+| `--bergamot-runtime-install` | подготовить runtime Bergamot |
+| `--ocr-warmup rapid` | заранее скачать модели RapidOCR |
+| `--uninstall [--purge]` | удалить установку; `--purge` — вместе с данными |
 
 ---
 
@@ -187,15 +195,22 @@ gtk4-layer-shell
 
 tesseract
 tesseract-data-eng
-tesseract-data-jpn
-tesseract-data-rus
+tesseract-data-jpn   # опционально: японский OCR
+tesseract-data-rus   # опционально: русский OCR
 
 grim
 slurp
 wl-clipboard
 aria2
 libnotify
+
+gstreamer
+gst-plugins-base
+gst-plugin-pipewire   # захват через ScreenCast portal в KDE
+xdg-desktop-portal
 ```
+
+Arch-пакет дополнительно ставит RapidOCR, ONNX Runtime и их Python-зависимости.
 
 </details>
 

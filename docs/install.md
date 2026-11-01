@@ -105,9 +105,13 @@ Rust-модуль анализа кадров и чернил также вхо�
 
 Флаги этих компонентов без `--user` завершаются с подсказкой, чтобы установщик
 не пропускал запрошенные возможности. `--prefix` также относится к `--user`.
-Офлайн CT2-паки занимают примерно **160 МБ**; Bergamot доступен и в Arch-пакете.
-Модуль `ctranslate2` не входит в зависимости `PKGBUILD`. Если нужны CT2-паки,
-используйте `--user --offline-packs`: установщик добавит extra `local-mt`.
+Офлайн CT2-паки занимают примерно **160 МБ**. Модуль `ctranslate2` не входит в
+зависимости `PKGBUILD`, поэтому `--pack-install` в Arch-режиме скачивает только
+модели. Если нужны CT2-паки, используйте `--user --offline-packs`: установщик
+добавит extra `local-mt` и скачает модели. Bergamot также можно поставить в
+Arch-режиме, но его runtime и модели не входят в пакет: используйте
+`./install.sh --bergamot en-ru` либо команды `--bergamot-runtime-install` и
+`--bergamot-install en-ru` (нужны `uv` и сеть).
 
 В пользовательском режиме Rust-модуль собирается, если доступна команда `cargo`.
 Если её нет или сборка не удалась, приложение продолжает работать на Python.
@@ -138,6 +142,12 @@ PaddleOCR — необязательный компонент. Установщ�
 kizurium-translator --pack-install all
 ```
 
+Эта команда скачивает **модели**, но не ставит runtime `ctranslate2`. В
+Arch-пакете и Nix-пакете runtime по умолчанию отсутствует: для локального
+перевода нужен extra `local-mt` (в Arch — `./install.sh --user --offline-packs`)
+или Bergamot.
+Подробнее: [`language-packs.md`](language-packs.md).
+
 ---
 
 ## Удаление
@@ -156,7 +166,9 @@ sudo pacman -R kizurium-translator
 kizurium-translator --uninstall
 ```
 
-Удаление спросит, нужно ли удалять пользовательские данные.
+Интерактивный `./install.sh --uninstall` спросит, удалять ли конфиг, кэш, логи и
+офлайн-модели. `kizurium-translator --uninstall` удаляет команду и окружение, но
+оставляет данные без вопроса — для полного сноса добавьте `--purge`.
 
 Полностью удалить конфигурацию, кэш, логи и офлайн-модели:
 
@@ -312,11 +324,11 @@ aria2
 }
 ```
 
-После установки офлайн-паки можно добавить отдельно:
-
-```bash
-kizurium-translator --pack-install all
-```
+Flake-пакет не включает runtime CTranslate2. Команда `--pack-install all`
+скачивает только модели; чтобы локальный CT2-перевод заработал, добавьте
+`ctranslate2`, `transformers`, `sentencepiece` и `huggingface-hub` в окружение
+приложения. Альтернатива — Bergamot: `--bergamot-runtime-install` и
+`--bergamot-install en-ru` (нужны `uv` и сеть).
 
 ---
 
@@ -339,16 +351,22 @@ gtk4-layer-shell
 
 tesseract
 tesseract-data-eng
-tesseract-data-jpn
-tesseract-data-rus
+tesseract-data-jpn   # опционально: японский OCR
+tesseract-data-rus   # опционально: русский OCR
 
 grim
 slurp
 wl-clipboard
 aria2
 libnotify
+
+gstreamer
+gst-plugins-base
+gst-plugin-pipewire   # захват через ScreenCast portal в KDE
+xdg-desktop-portal
 ```
 
+Arch-пакет дополнительно ставит RapidOCR, ONNX Runtime и их Python-зависимости.
 На Arch рекомендуется использовать `./install.sh`, чтобы не устанавливать их по одному вручную.
 
 ---
@@ -556,8 +574,9 @@ kizurium-translator --doctor
 ```text
 install
 ├─ основные пакеты
-├─ Meiki
-└─ offline packs (опционально)
+├─ Bergamot (опционально)
+├─ Meiki (--user)
+└─ offline packs + local-mt (--user, опционально)
 
 maintenance
 ├─ uninstall
@@ -568,7 +587,8 @@ diagnostics
 └─ doctor
 ```
 
-Офлайн-паки можно не устанавливать сразу и добавить позже:
+Офлайн-паки можно не устанавливать сразу и добавить позже. Команда ниже
+скачивает модели; runtime `ctranslate2` при этом должен быть установлен отдельно:
 
 ```bash
 kizurium-translator --pack-install all
